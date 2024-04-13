@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsbem8bswoigv"]
+[gd_scene load_steps=3 format=3 uid="uid://bsbem8bswoigv"]
 
 [ext_resource type="Texture2D" uid="uid://cbjt17h4bb1uy" path="res://Assets/blue_ball.svg" id="1_o6qq8"]
+[ext_resource type="Script" path="res://Scenes/power_core.gd" id="1_xgv46"]
 
 [node name="PowerCore" type="Node2D" groups=["power"]]
+script = ExtResource("1_xgv46")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -32.0

@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://0rxfvu5fyyub"]
+[gd_scene load_steps=4 format=3 uid="uid://0rxfvu5fyyub"]
 
+[ext_resource type="Script" path="res://Scenes/Box/box_1x_1o.gd" id="1_glbpx"]
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_p20jr"]
+[ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="3_lrfjq"]
 
 [node name="Box1X1O" type="Node2D"]
+script = ExtResource("1_glbpx")
 
 [node name="Base" type="TextureRect" parent="."]
 offset_left = -56.0
@@ -37,3 +40,10 @@ offset_right = -24.0
 offset_bottom = 8.0
 texture = ExtResource("1_p20jr")
 expand_mode = 1
+
+[node name="PowerCore" parent="." instance=ExtResource("3_lrfjq")]
+position = Vector2(-4, 3)
+scale = Vector2(0.5, 0.5)
+is_powered = false
+
+[connection signal="power_consumed" from="PowerCore" to="." method="_on_power_core_power_consumed"]
