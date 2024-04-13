@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwhmux7f5qpgq"]
+
+[ext_resource type="Texture2D" uid="uid://cv6efa8gkm4sr" path="res://Assets/white_ball.svg" id="1_ia5e2"]
+[ext_resource type="Script" path="res://Scenes/box_light.gd" id="1_yxt2c"]
+
+[node name="BoxLight" type="Node2D"]
+script = ExtResource("1_yxt2c")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.0862745, 0.658824, 0.235294, 1)
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ia5e2")
+expand_mode = 1

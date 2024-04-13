@@ -9,6 +9,7 @@ signal box_selected
 func _ready():
 	for i in range(0, 5):
 		var card: Node = card_res.instantiate()
+		card.card_type = randi_range(0, 1)
 		card_holder.add_child(card)
 		card.connect("card_hovered", _on_card_hovered)
 		card.connect("card_selected", _on_card_selected)

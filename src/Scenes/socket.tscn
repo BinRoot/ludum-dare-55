@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://h8w63a0c5vto"]
+
+[ext_resource type="Script" path="res://Scenes/socket.gd" id="1_rns0q"]
+[ext_resource type="Texture2D" uid="uid://cbjt17h4bb1uy" path="res://Assets/blue_ball.svg" id="1_yk6u8"]
+
+[node name="Socket" type="Node2D" groups=["socket"]]
+modulate = Color(0.864675, 0.864675, 0.864675, 1)
+position = Vector2(-32, -32)
+script = ExtResource("1_rns0q")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("1_yk6u8")

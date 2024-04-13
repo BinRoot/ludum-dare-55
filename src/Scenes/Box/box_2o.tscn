@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cf5jsq4i8dlbq"]
+
+[ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_0w2md"]
+[ext_resource type="Script" path="res://Scenes/Box/box_2o.gd" id="1_vh11e"]
+[ext_resource type="PackedScene" uid="uid://h8w63a0c5vto" path="res://Scenes/socket.tscn" id="2_wimwf"]
+[ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="3_ti4da"]
+[ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="5_f2yuu"]
+
+[node name="Box2O" type="Node2D"]
+position = Vector2(-32, -48)
+script = ExtResource("1_vh11e")
+
+[node name="Base" type="TextureRect" parent="."]
+offset_left = -24.0
+offset_top = -8.0
+offset_right = 64.0
+offset_bottom = 104.0
+texture = ExtResource("1_0w2md")
+
+[node name="Socket" parent="." instance=ExtResource("2_wimwf")]
+position = Vector2(48, 16)
+
+[node name="PowerCore" parent="." instance=ExtResource("3_ti4da")]
+position = Vector2(0, 48)
+
+[node name="BoxLight" parent="." instance=ExtResource("5_f2yuu")]
+position = Vector2(0, 8)
+
+[node name="Socket2" parent="." instance=ExtResource("2_wimwf")]
+position = Vector2(48, 80)

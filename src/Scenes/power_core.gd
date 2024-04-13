@@ -1,13 +1,16 @@
 extends Node2D
-signal power_consumed
+signal consumed
 
-@export var is_powered = true
+var consumed_by
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
+func is_powered():
+	return consumed_by != null and consumed_by.is_powered
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	visible = is_powered
+func get_box():
+	return get_parent()
+
+func _physics_process(_delta):
+	visible = consumed_by != null

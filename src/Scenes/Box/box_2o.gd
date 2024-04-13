@@ -2,9 +2,10 @@ extends Node2D
 
 @onready var power_core1 = $PowerCore
 @onready var socket1 = $Socket
+@onready var socket2 = $Socket2
 @onready var box_light = $BoxLight
 @onready var inputs = [power_core1]
-@onready var outputs = [socket1]
+@onready var outputs = [socket1, socket2]
 
 # derived by the inputs
 var is_powered = false

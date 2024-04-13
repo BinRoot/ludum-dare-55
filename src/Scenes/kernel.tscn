@@ -2,23 +2,23 @@
 
 [ext_resource type="Script" path="res://Scenes/kernel.gd" id="1_ucwt3"]
 [ext_resource type="PackedScene" uid="uid://putsv562o86l" path="res://Scenes/deck.tscn" id="1_vxrh1"]
-[ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="2_13xlu"]
+[ext_resource type="PackedScene" uid="uid://bqquic1fte1jx" path="res://Scenes/Box/box_root.tscn" id="3_k6w42"]
 
 [node name="Kernel" type="Node2D"]
 script = ExtResource("1_ucwt3")
 
-[node name="LineHolder" type="Node2D" parent="."]
-
-[node name="PowerCoreLine2D" type="Line2D" parent="LineHolder"]
-
 [node name="Deck" parent="." instance=ExtResource("1_vxrh1")]
 position = Vector2(400, 720)
-
-[node name="PowerCore" parent="." instance=ExtResource("2_13xlu")]
-position = Vector2(64, 312)
 
 [node name="MapReferenceRect" type="ReferenceRect" parent="."]
 offset_right = 800.0
 offset_bottom = 640.0
+
+[node name="BoxRoot" parent="." instance=ExtResource("3_k6w42")]
+position = Vector2(80, 328)
+
+[node name="LineHolder" type="Node2D" parent="."]
+
+[node name="PowerCoreLine2D" type="Line2D" parent="LineHolder"]
 
 [connection signal="box_selected" from="Deck" to="." method="_on_deck_box_selected"]
