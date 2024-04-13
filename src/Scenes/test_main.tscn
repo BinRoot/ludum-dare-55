@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://phmfa0htppn0"]
+
+[ext_resource type="Texture2D" uid="uid://2pvkj2d8hngp" path="res://icon.svg" id="1_drtp3"]
+
+[node name="TestMain" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_drtp3")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://kh8r2ri2thfb"]
+
+[ext_resource type="Script" path="res://Scenes/settings_ui.gd" id="1_i565a"]
+
+[node name="SettingsUI" type="Control" groups=["settings_ui"]]
+z_index = 999
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i565a")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "hello"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 776.0
+offset_right = 800.0
+offset_bottom = 799.0
+text = "world"
+
+[node name="SaveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 320.0
+offset_right = 704.0
+offset_bottom = 424.0
+text = "Save & Close"
+
+[node name="Tree" type="Tree" parent="."]
+layout_mode = 0
+offset_right = 448.0
+offset_bottom = 800.0
+columns = 2
+hide_root = true
+
+[connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwqtmiki10vov"]
+
+[ext_resource type="Script" path="res://Scenes/card.gd" id="1_ekduy"]
+[ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_hr17g"]
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_ekduy")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_hr17g")
+
+[node name="Camera2D" type="Camera2D" parent="."]

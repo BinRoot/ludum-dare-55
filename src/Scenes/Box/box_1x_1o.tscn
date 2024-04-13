@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://0rxfvu5fyyub"]
+
+[ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_p20jr"]
+
+[node name="Box1X1O" type="Node2D"]
+
+[node name="Base" type="TextureRect" parent="."]
+offset_left = -56.0
+offset_top = -24.0
+offset_right = 56.0
+offset_bottom = 24.0
+texture = ExtResource("1_p20jr")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 0.717647, 0.647059, 1)
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 48.0
+offset_bottom = 16.0
+texture = ExtResource("1_p20jr")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(0.690196, 0.635294, 0.917647, 1)
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 16.0
+texture = ExtResource("1_p20jr")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = -48.0
+offset_top = -16.0
+offset_right = -24.0
+offset_bottom = 8.0
+texture = ExtResource("1_p20jr")
+expand_mode = 1
