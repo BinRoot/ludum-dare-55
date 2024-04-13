@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwqtmiki10vov"]
+[gd_scene load_steps=4 format=3 uid="uid://dwqtmiki10vov"]
 
 [ext_resource type="Script" path="res://Scenes/card.gd" id="1_ekduy"]
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_hr17g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npd3f"]
+size = Vector2(128, 128)
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_ekduy")
@@ -14,3 +17,12 @@ offset_bottom = 64.0
 texture = ExtResource("1_hr17g")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_npd3f")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

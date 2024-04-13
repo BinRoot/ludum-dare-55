@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://putsv562o86l"]
+
+[ext_resource type="Script" path="res://Scenes/deck.gd" id="1_735go"]
+[ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_qah5h"]
+
+[node name="Deck" type="Node2D"]
+script = ExtResource("1_735go")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = -400.0
+offset_top = -80.0
+offset_right = 400.0
+offset_bottom = 80.0
+texture = ExtResource("1_qah5h")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+offset_left = -384.0
+offset_top = -72.0
+offset_right = 384.0
+offset_bottom = 72.0
+
+[node name="CardHolder" type="Node2D" parent="."]
