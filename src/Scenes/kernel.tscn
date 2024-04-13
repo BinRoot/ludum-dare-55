@@ -1,29 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3g28rj6s7o3l"]
+[gd_scene load_steps=6 format=3 uid="uid://c3g28rj6s7o3l"]
 
 [ext_resource type="Script" path="res://Scenes/kernel.gd" id="1_ucwt3"]
 [ext_resource type="PackedScene" uid="uid://putsv562o86l" path="res://Scenes/deck.tscn" id="1_vxrh1"]
 [ext_resource type="PackedScene" uid="uid://bqquic1fte1jx" path="res://Scenes/Box/box_root.tscn" id="3_k6w42"]
 [ext_resource type="PackedScene" uid="uid://u2soe1uj7krd" path="res://Scenes/Box/box_summon_1.tscn" id="4_5i6nd"]
 
+[sub_resource type="Curve" id="Curve_kq2lw"]
+_data = [Vector2(0.30198, 0.395604), 0.0, 0.0, 0, 0, Vector2(0.693069, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Kernel" type="Node2D"]
 script = ExtResource("1_ucwt3")
 
 [node name="Deck" parent="." instance=ExtResource("1_vxrh1")]
-position = Vector2(400, 720)
+position = Vector2(1000, 968)
 
 [node name="MapReferenceRect" type="ReferenceRect" parent="."]
-offset_right = 800.0
-offset_bottom = 640.0
+offset_right = 1920.0
+offset_bottom = 864.0
 
 [node name="BoxRoot" parent="." instance=ExtResource("3_k6w42")]
-position = Vector2(80, 328)
+position = Vector2(176, 488)
 
 [node name="LineHolder" type="Node2D" parent="."]
 
 [node name="PowerCoreLine2D" type="Line2D" parent="LineHolder"]
+width_curve = SubResource("Curve_kq2lw")
 
 [node name="BoxSummon1" parent="." instance=ExtResource("4_5i6nd")]
-position = Vector2(600, 296)
+position = Vector2(1072, 416)
 is_in_play = true
 
 [connection signal="box_selected" from="Deck" to="." method="_on_deck_box_selected"]

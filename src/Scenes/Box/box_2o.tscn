@@ -21,12 +21,15 @@ texture = ExtResource("1_0w2md")
 position = Vector2(48, 16)
 
 [node name="PowerCore" parent="." instance=ExtResource("3_ti4da")]
-position = Vector2(0, 48)
+position = Vector2(-16, 48)
 
 [node name="BoxLight" parent="." instance=ExtResource("5_f2yuu")]
 position = Vector2(0, 8)
 
 [node name="Socket2" parent="." instance=ExtResource("2_wimwf")]
 position = Vector2(48, 80)
+
+[node name="Polygon2D" type="Polygon2D" parent="." groups=["is_solid"]]
+polygon = PackedVector2Array(-40, -24, 80, 120)
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]
