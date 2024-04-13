@@ -1,19 +1,8 @@
 extends Node
 
 var params = {
-	"sec1": {
-		"test": 1,
-		"isEnabled": true,
-		"quickMode": false,
-		"person": "bob",
-		"test2": [1, 2, 3],
-		"isEnabled2": [true, false],
-		"quickMode2": false,
-		"person2": ["bob", "bob2"],
-		"test3": 1,
-		"isEnabled3": true,
-		"quickMode3": false,
-		"person3": "bob",
+	"misc": {
+		"max_path_length": 10,
 	}
 }
 

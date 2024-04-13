@@ -18,9 +18,11 @@ position = Vector2(1000, 968)
 [node name="MapReferenceRect" type="ReferenceRect" parent="."]
 offset_right = 1920.0
 offset_bottom = 864.0
+mouse_filter = 2
 
 [node name="BoxRoot" parent="." instance=ExtResource("3_k6w42")]
 position = Vector2(176, 488)
+is_in_play = true
 
 [node name="LineHolder" type="Node2D" parent="."]
 
@@ -31,5 +33,9 @@ width_curve = SubResource("Curve_kq2lw")
 position = Vector2(1072, 416)
 is_in_play = true
 
+[node name="GameOverChecker" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="box_selected" from="Deck" to="." method="_on_deck_box_selected"]
 [connection signal="power_core_clicked" from="BoxSummon1" to="." method="_on_power_core_clicked"]
+[connection signal="timeout" from="GameOverChecker" to="." method="_on_game_over_checker_timeout"]

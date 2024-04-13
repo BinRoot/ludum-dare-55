@@ -10,3 +10,48 @@ script = ExtResource("1_ox0o4")
 offset = Vector2(960, 540)
 
 [node name="Kernel" parent="." instance=ExtResource("1_1owam")]
+
+[node name="GameOverUI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Label" type="Label" parent="GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -542.0
+offset_top = -324.0
+offset_right = 542.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 200
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -38.5
+offset_right = 117.0
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Try Again"
+
+[connection signal="out_of_sockets" from="Kernel" to="." method="_on_kernel_out_of_sockets"]
+[connection signal="pressed" from="GameOverUI/Button" to="." method="_on_button_pressed"]

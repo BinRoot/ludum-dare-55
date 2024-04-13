@@ -6,7 +6,7 @@ extends Node2D
 @onready var outputs = [socket]
 
 # derived by the inputs
-var is_powered = false
+var is_powered = true
 
 @export var is_in_play = false
 
