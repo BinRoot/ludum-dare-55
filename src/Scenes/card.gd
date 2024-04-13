@@ -27,6 +27,6 @@ func _on_area_2d_mouse_entered():
 	emit_signal("card_hovered", self)
 
 
-func _on_area_2d_input_event(viewport, event: InputEvent, shape_idx):
-	if event.is_pressed():
+func _on_area_2d_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.is_pressed():
 		emit_signal("card_selected", self)

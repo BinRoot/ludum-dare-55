@@ -8,6 +8,8 @@ extends Node2D
 # derived by the inputs
 var is_powered = false
 
+@export var is_in_play = false
+
 func _physics_process(_delta):
 	# all inputs must be consumed by a powered box for this box to be powered
 	is_powered = true

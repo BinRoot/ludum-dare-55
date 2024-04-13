@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://chviof5mg6mnp"]
+[gd_scene load_steps=3 format=3 uid="uid://chviof5mg6mnp"]
 
 [ext_resource type="PackedScene" uid="uid://c3g28rj6s7o3l" path="res://Scenes/kernel.tscn" id="1_1owam"]
+[ext_resource type="Script" path="res://Scenes/demo_level.gd" id="1_ox0o4"]
 
 [node name="DemoLevel" type="Node2D"]
+script = ExtResource("1_ox0o4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(400, 400)

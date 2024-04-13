@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsbem8bswoigv"]
+[gd_scene load_steps=5 format=3 uid="uid://bsbem8bswoigv"]
 
 [ext_resource type="Script" path="res://Scenes/power_core.gd" id="1_xgv46"]
 [ext_resource type="Texture2D" uid="uid://cv6efa8gkm4sr" path="res://Assets/white_ball.svg" id="2_gg8an"]
+[ext_resource type="Texture2D" uid="uid://t40tjehob5pk" path="res://Assets/dotted_ball.svg" id="3_1fifo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w01i1"]
+radius = 40.0
 
 [node name="PowerCore" type="Node2D" groups=["power"]]
 script = ExtResource("1_xgv46")
@@ -13,3 +17,20 @@ offset_top = -32.0
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("2_gg8an")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_w01i1")
+
+[node name="HighlightedUI" type="TextureRect" parent="."]
+visible = false
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("3_1fifo")
+expand_mode = 1
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

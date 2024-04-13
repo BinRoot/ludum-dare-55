@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://u2soe1uj7krd"]
+
+[ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_jfbnm"]
+[ext_resource type="Script" path="res://Scenes/Box/box_summon_1.gd" id="1_l25rl"]
+[ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="2_2hajb"]
+[ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="3_lrco4"]
+
+[node name="BoxSummon1" type="Node2D"]
+script = ExtResource("1_l25rl")
+
+[node name="Base" type="TextureRect" parent="."]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_jfbnm")
+
+[node name="PowerCore" parent="." instance=ExtResource("2_2hajb")]
+position = Vector2(-72, 0)
+
+[node name="PowerCore2" parent="." instance=ExtResource("2_2hajb")]
+position = Vector2(0, -72)
+
+[node name="PowerCore3" parent="." instance=ExtResource("2_2hajb")]
+position = Vector2(72, 0)
+
+[node name="PowerCore4" parent="." instance=ExtResource("2_2hajb")]
+position = Vector2(0, 72)
+
+[node name="BoxLight" parent="." instance=ExtResource("3_lrco4")]
+position = Vector2(56, -64)
+
+[connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]
+[connection signal="clicked" from="PowerCore2" to="." method="_on_power_core_clicked"]
+[connection signal="clicked" from="PowerCore3" to="." method="_on_power_core_clicked"]
+[connection signal="clicked" from="PowerCore4" to="." method="_on_power_core_clicked"]
