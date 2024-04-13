@@ -9,6 +9,7 @@ extends Node2D
 var is_powered = true
 
 @export var is_in_play = false
+@export var owned_by: Globals.PlayerID = Globals.PlayerID.NEUTRAL
 
 func _physics_process(_delta):
 	# all inputs must be consumed by a powered box for this box to be powered
@@ -21,3 +22,4 @@ func _physics_process(_delta):
 		elif not input_source_box.is_powered:
 			is_powered = false
 			break
+			

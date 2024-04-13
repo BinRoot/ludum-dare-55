@@ -12,7 +12,7 @@ signal power_core_clicked
 var is_powered = false
 
 @export var is_in_play = false
-
+@export var owned_by: Globals.PlayerID = Globals.PlayerID.NEUTRAL
 
 func _physics_process(_delta):
 	# all inputs must be consumed by a powered box for this box to be powered

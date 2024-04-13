@@ -6,7 +6,20 @@ var params = {
 	}
 }
 
+enum PlayerID { P1, COM1, NEUTRAL }
+
 @onready var settings_ui = preload("res://Scenes/settings_ui.tscn")
+
+enum CardTypes { card1, card2 }
+
+var card_types = {
+	CardTypes.card1: {
+		'resource_path': preload('res://Scenes/Box/box_1x_1o.tscn')
+	},
+	CardTypes.card2: {
+		'resource_path': preload('res://Scenes/Box/box_2o.tscn')
+	}
+}
 
 func _input(event):
 	if event.is_action_pressed("ui_settings_toggle"):

@@ -19,7 +19,7 @@ func draw_cards():
 	for i in range(0, max_num_cards):
 		var card: Node = card_res.instantiate()
 		current_cards.append(card)
-		card.card_type = randi_range(0, 1)
+		card.card_type = randi_range(0, Globals.CardTypes.values().size() - 1)
 		card_holder.add_child(card)
 		card.connect("card_hovered", _on_card_hovered)
 		card.connect("card_selected", _on_card_selected)

@@ -21,7 +21,7 @@ offset_bottom = 864.0
 mouse_filter = 2
 
 [node name="BoxRoot" parent="." instance=ExtResource("3_k6w42")]
-position = Vector2(176, 488)
+position = Vector2(192, 520)
 is_in_play = true
 
 [node name="LineHolder" type="Node2D" parent="."]
@@ -30,11 +30,16 @@ is_in_play = true
 width_curve = SubResource("Curve_kq2lw")
 
 [node name="BoxSummon1" parent="." instance=ExtResource("4_5i6nd")]
-position = Vector2(1072, 416)
+position = Vector2(968, 368)
 is_in_play = true
 
 [node name="GameOverChecker" type="Timer" parent="."]
 one_shot = true
+
+[node name="BoxRoot2" parent="." instance=ExtResource("3_k6w42")]
+position = Vector2(1880, 528)
+is_in_play = true
+owned_by = 1
 
 [connection signal="box_selected" from="Deck" to="." method="_on_deck_box_selected"]
 [connection signal="power_core_clicked" from="BoxSummon1" to="." method="_on_power_core_clicked"]
