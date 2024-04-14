@@ -13,6 +13,8 @@ signal com_summons
 @onready var deck = $Deck
 @onready var delay_com_timer = $DelayCOMTimer
 
+var is_game_over = false
+
 var selected_box
 
 var sockets = []
@@ -193,6 +195,8 @@ func _on_power_core_clicked(selected_pc):
 
 
 func _on_game_over_checker_timeout():
+	if is_game_over:
+		return
 	var num_summon_inputs_owned_by_p1 = 0
 	var num_summon_inputs_owned_by_com = 0
 	for summon_input in summon.inputs:
@@ -202,10 +206,14 @@ func _on_game_over_checker_timeout():
 			elif summon_input.consumed_by.owned_by == Globals.PlayerID.COM1:
 				num_summon_inputs_owned_by_com += 1
 	if num_summon_inputs_owned_by_p1 == summon.inputs.size():
+		summon.open_vault()
 		emit_signal("player_summons")
+		is_game_over = true
 		return
 	elif num_summon_inputs_owned_by_com == summon.inputs.size():
+		summon.open_vault()
 		emit_signal("com_summons")
+		is_game_over = true
 		return
 	prints('game over check ', num_summon_inputs_owned_by_p1, ' ', num_summon_inputs_owned_by_com)
 		

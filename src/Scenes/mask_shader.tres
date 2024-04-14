@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bvnho1y8ff1fe"]
+
+[ext_resource type="Shader" path="res://Scenes/Box/box_summon_1.gdshader" id="1_5okmm"]
+
+[resource]
+shader = ExtResource("1_5okmm")
