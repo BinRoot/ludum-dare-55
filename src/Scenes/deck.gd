@@ -22,7 +22,7 @@ func draw_cards():
 		var card: Node = card_res.instantiate()
 		current_cards.append(card)
 		card.card_type = randi_range(0, Globals.CardTypes.values().size() - 1)
-		if card.card_type != Globals.CardTypes.card3:
+		if card.card_type != Globals.CardTypes.card3a and card.card_type != Globals.CardTypes.card3b and card.card_type != Globals.CardTypes.card3c:
 			is_all_card3 = false
 		if is_all_card3 and i == max_num_cards - 1:
 			card.card_type = 0
@@ -50,7 +50,11 @@ func _on_card_hovered(card):
 	card_hover_tween.tween_property(card, "position", original_card_position, 0.1)
 
 func _on_card_selected(card):
-	emit_signal("box_selected", card.get_card_res())
+	emit_signal("box_selected", card.card_type)
+	for current_card in current_cards:
+		current_card.is_selected = true
 
 func _on_card_unselected():
 	emit_signal("box_unselected")
+	for current_card in current_cards:
+		current_card.is_selected = false

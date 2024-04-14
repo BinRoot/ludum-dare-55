@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var delete_button: Button = $DeleteButton
 
-
 func _physics_process(_delta):
 	# all inputs must be consumed by a powered box for this box to be powered
 	get_parent().is_powered = true

@@ -4,6 +4,8 @@ extends Node2D
 @onready var texture = $TextureRect
 @onready var random_timer = $RandomTimer
 @onready var original_text_position = texture.position
+@onready var original_texture_modulate = texture.modulate
+@onready var original_texture_scale = texture.scale
 
 var is_used = false
 var is_primed = false
@@ -29,9 +31,15 @@ func _physics_process(delta):
 		texture.position = original_text_position
 	if is_used:
 		texture.visible = false
+	if get_box().is_powered:
+		scale = original_texture_scale
+		modulate = original_texture_modulate
+	else:
+		scale = original_texture_scale * 0.8
+		modulate = Color.CADET_BLUE
 
 func _on_area_2d_area_entered(area):
-	if not is_primed and is_target_found(area):
+	if get_box().is_powered and not is_primed and is_target_found(area):
 		
 		var dir_vec = area.global_position - global_position
 		texture.rotation = Vector2.RIGHT.angle_to(dir_vec)

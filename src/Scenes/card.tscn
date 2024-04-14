@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwqtmiki10vov"]
+[gd_scene load_steps=5 format=3 uid="uid://dwqtmiki10vov"]
 
 [ext_resource type="Script" path="res://Scenes/card.gd" id="1_ekduy"]
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_hr17g"]
+[ext_resource type="Texture2D" uid="uid://cv6efa8gkm4sr" path="res://Assets/white_ball.svg" id="3_4qub8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npd3f"]
 size = Vector2(128, 128)
@@ -22,6 +23,120 @@ texture = ExtResource("1_hr17g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_npd3f")
+
+[node name="Subtype1" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -64.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 96.0
+
+[node name="TextureRect" type="TextureRect" parent="Subtype1"]
+modulate = Color(0.839216, 0.654902, 0.227451, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = 8.0
+offset_right = -56.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4qub8")
+expand_mode = 1
+
+[node name="Subtype2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -64.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 96.0
+
+[node name="TextureRect" type="TextureRect" parent="Subtype2"]
+modulate = Color(0.839216, 0.654902, 0.227451, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 72.0
+offset_top = 8.0
+offset_right = -40.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4qub8")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Subtype2"]
+modulate = Color(0.839216, 0.654902, 0.227451, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 8.0
+offset_right = -72.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4qub8")
+expand_mode = 1
+
+[node name="Subtype3" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -64.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 96.0
+
+[node name="TextureRect" type="TextureRect" parent="Subtype3"]
+modulate = Color(0.839216, 0.654902, 0.227451, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = -80.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4qub8")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Subtype3"]
+modulate = Color(0.839216, 0.654902, 0.227451, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = 8.0
+offset_right = -56.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4qub8")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Subtype3"]
+modulate = Color(0.839216, 0.654902, 0.227451, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = -32.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4qub8")
+expand_mode = 1
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

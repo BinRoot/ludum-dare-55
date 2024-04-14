@@ -4,6 +4,10 @@ signal card_selected
 signal card_unselected
 
 @export var card_type: Globals.CardTypes
+@onready var subtype1 = $Subtype1
+@onready var subtype2 = $Subtype2
+@onready var subtype3 = $Subtype3
+
 var is_selected = false
 
 func _ready():
@@ -25,6 +29,15 @@ func _physics_process(delta):
 	else:
 		modulate = Color.WHITE
 		modulate.a = 1
+	subtype1.hide()
+	subtype2.hide()
+	subtype3.hide()
+	if Globals.card_types[card_type]["path_size_factor"] == 1:
+		subtype1.show()
+	if Globals.card_types[card_type]["path_size_factor"] == 2:
+		subtype2.show()
+	if Globals.card_types[card_type]["path_size_factor"] == 3:
+		subtype3.show()
 		
 
 func _on_area_2d_input_event(viewport, event, shape_idx):

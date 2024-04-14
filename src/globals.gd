@@ -2,8 +2,8 @@ extends Node
 
 var params = {
 	"misc": {
-		"max_path_length": 10,
-		"cell_size": 32
+		"max_path_length": 16,
+		"cell_size": 16
 	}
 }
 
@@ -11,18 +11,45 @@ enum PlayerID { P1, COM1, NEUTRAL }
 
 @onready var settings_ui = preload("res://Scenes/settings_ui.tscn")
 
-enum CardTypes { card1, card2, card3 }
+enum CardTypes { card1a, card1b, card1c, card2a, card2b, card2c, card3a, card3b, card3c }
 
 var card_types = {
-	CardTypes.card1: {
-		'resource_path': preload('res://Scenes/Box/box_1x_1o.tscn')
+	CardTypes.card1a: {
+		'resource_path': preload('res://Scenes/Box/box_1x_1o.tscn'),
+		'path_size_factor': 1,
 	},
-	CardTypes.card2: {
-		'resource_path': preload('res://Scenes/Box/box_2o.tscn')
+	CardTypes.card1b: {
+		'resource_path': preload('res://Scenes/Box/box_1x_1o.tscn'),
+		'path_size_factor': 2,
 	},
-	CardTypes.card3: {
-		'resource_path': preload('res://Scenes/Box/box_2x.tscn')
-	}
+	CardTypes.card1c: {
+		'resource_path': preload('res://Scenes/Box/box_1x_1o.tscn'),
+		'path_size_factor': 3,
+	},
+	CardTypes.card2a: {
+		'resource_path': preload('res://Scenes/Box/box_2o.tscn'),
+		'path_size_factor': 1,
+	},
+	CardTypes.card2b: {
+		'resource_path': preload('res://Scenes/Box/box_2o.tscn'),
+		'path_size_factor': 2,
+	},
+	CardTypes.card2c: {
+		'resource_path': preload('res://Scenes/Box/box_2o.tscn'),
+		'path_size_factor': 3,
+	},
+	CardTypes.card3a: {
+		'resource_path': preload('res://Scenes/Box/box_2x.tscn'),
+		'path_size_factor': 1,
+	},
+	CardTypes.card3b: {
+		'resource_path': preload('res://Scenes/Box/box_2x.tscn'),
+		'path_size_factor': 2,
+	},
+	CardTypes.card3c: {
+		'resource_path': preload('res://Scenes/Box/box_2x.tscn'),
+		'path_size_factor': 3,
+	},
 }
 
 func _input(event):

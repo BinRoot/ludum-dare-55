@@ -62,7 +62,7 @@ func get_nearest_socket(reference_position: Vector2, player_id: Globals.PlayerID
 	if nearest_socket != null:
 		if player_id == Globals.PlayerID.P1 and nearest_socket.global_position.distance_to(reference_position) < 5:
 			return
-		if player_id == Globals.PlayerID.COM1 and nearest_socket.global_position.distance_to(reference_position) < 150:
+		if player_id == Globals.PlayerID.COM1 and nearest_socket.get_box().global_position.distance_to(reference_position) < 150:
 			return
 	return nearest_socket
 
@@ -86,7 +86,10 @@ func draw_path(path):
 	for point_idx in range(line_gradient.get_point_count()):
 		line_gradient.remove_point(point_idx)
 	for path_idx in range(path.size() + 1):
-		if path_idx > path.size() - Globals.params["misc"]["max_path_length"]:
+		var path_size_factor = 1
+		if weakref(selected_box).get_ref():
+			path_size_factor = selected_box.path_size_factor
+		if path_idx > path.size() - Globals.params["misc"]["max_path_length"] * path_size_factor:
 			line_gradient.add_point(path_idx / float(path.size()), Color.GREEN)
 		else:
 			line_gradient.add_point(path_idx / float(path.size()), Color.RED)
@@ -140,16 +143,22 @@ func _input(event):
 				var start_position = get_available_input(selected_box).global_position
 				var target_position = nearest_socket.global_position
 				var path = get_path_from_positions(start_position, target_position)
-				if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"]:
+				var path_size_factor = 1
+				if weakref(selected_box).get_ref():
+					path_size_factor = selected_box.path_size_factor
+				if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"] * path_size_factor:
 					establish_connection(path, selected_box, nearest_socket, Globals.PlayerID.P1)
 			line_for_power_core_distance.clear_points()
 		elif event.is_pressed():
 			line_for_power_core_distance.clear_points()
 
 
-func _on_deck_box_selected(card_res: Resource):
+func _on_deck_box_selected(card_type: Globals.CardTypes):
 	if selected_box == null:
+		var card_res = Globals.card_types[card_type]['resource_path']
+		var path_size_factor = Globals.card_types[card_type]['path_size_factor']
 		selected_box = card_res.instantiate()
+		selected_box.path_size_factor = path_size_factor
 		add_child(selected_box)
 		selected_box.connect("power_core_clicked", _on_power_core_clicked)
 
@@ -213,6 +222,7 @@ func _on_game_over_checker_timeout():
 		return
 
 func player_turn_end():
+	deck.hide()
 	delay_com_timer.start()
 	await delay_com_timer.timeout
 	print("AI Turn")
@@ -238,7 +248,10 @@ func player_turn_end():
 		if path_and_nearest_socket != null:
 			var path = path_and_nearest_socket[0]
 			var nearest_socket = path_and_nearest_socket[1]
-			if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"]:
+			var path_size_factor = 1
+			if weakref(box).get_ref():
+				path_size_factor = box.path_size_factor
+			if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"] * path_size_factor:
 				connect_power_core_to_socket(path, power_core, nearest_socket)
 				print("connected power core")
 				is_summon_slot_usable = true
@@ -256,11 +269,11 @@ func player_turn_end():
 		var grid_pos: Vector2 = astar_grid.region.position
 		var grid_size: Vector2 = astar_grid.region.size
 		var min_distance_to_summon = 99999
-		var best_placement
+		var best_placement = null
 		var best_path
 		var best_socket
 
-		for i in range(100):
+		for i in range(300):
 			var rand_x_coord = randi_range(grid_pos.x, grid_pos.x + grid_size.x)
 			var rand_y_coord = randi_range(grid_pos.y, grid_pos.y + grid_size.y)
 			var candidate_pos = Vector2(rand_x_coord, rand_y_coord)
@@ -270,7 +283,10 @@ func player_turn_end():
 				continue
 			var grid_id_coord = get_grid_coord_from_position(Vector2(rand_x_coord, rand_y_coord))
 			var path = get_path_from_positions(candidate_pos, socket.global_position)
-			if path.size() == 0 or path.size() > Globals.params.misc["max_path_length"]:
+			var path_size_factor = 1
+			if weakref(ai_selected_box).get_ref():
+				path_size_factor = ai_selected_box.path_size_factor
+			if path.size() == 0 or path.size() > Globals.params.misc["max_path_length"] * path_size_factor:
 				continue
 			var distance_to_summon = summon.global_position.distance_to(candidate_pos)
 			if distance_to_summon < min_distance_to_summon:
@@ -289,13 +305,16 @@ func player_turn_end():
 			prints('no placement found ')
 			ai_selected_box.position = Vector2(-1000, -1000)
 			ai_selected_box.queue_free()
-			box_with_power_core.queue_free()
-	deck.draw_cards()	
+			if box_with_power_core != null:
+				box_with_power_core.queue_free()
+	deck.draw_cards()
+	deck.show()
 
 	# estimate value
 	# randomly pick between top 5 options?
 
 
 func _on_deck_box_unselected():
-	selected_box.queue_free()
-	selected_box = null
+	if selected_box != null:
+		selected_box.queue_free()
+		selected_box = null
