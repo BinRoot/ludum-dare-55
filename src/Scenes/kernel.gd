@@ -109,6 +109,8 @@ func establish_connection(path, box, socket, player_id: Globals.PlayerID):
 	get_available_input(box).consumed_by = socket.get_box()
 	socket.line2d = line2d
 	socket.consumed_by = box
+	socket.get_box().owned_by = player_id
+	box.owned_by = player_id
 	box.is_in_play = true
 	refresh_sockets_array()
 	box.owned_by = player_id
@@ -260,6 +262,7 @@ func player_turn_end():
 		prints('best placement: ', best_placement)
 		ai_selected_box.global_position = best_placement
 		ai_selected_box.is_in_play = true
+		ai_selected_box.connect("power_core_clicked", _on_power_core_clicked)
 		establish_connection(best_path, ai_selected_box, best_socket, Globals.PlayerID.COM1)
 	else:
 		prints('no placement found ')

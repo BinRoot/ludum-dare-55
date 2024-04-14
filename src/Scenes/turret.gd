@@ -23,3 +23,4 @@ func _on_area_2d_area_entered(area):
 		texture.rotation = Vector2.RIGHT.angle_to(dir_vec)
 		area.get_parent().queue_free()
 		is_used = true
+

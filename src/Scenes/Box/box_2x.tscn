@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bb2aeoc04jw1e"]
+[gd_scene load_steps=8 format=3 uid="uid://bb2aeoc04jw1e"]
 
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_1u8en"]
 [ext_resource type="Script" path="res://Scenes/Box/box_2x.gd" id="1_cmuwt"]
 [ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="2_cf2gn"]
 [ext_resource type="PackedScene" uid="uid://de33n744aur27" path="res://Scenes/turret.tscn" id="3_hpqyi"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="4_33nvx"]
+[ext_resource type="PackedScene" uid="uid://dp0u3h78lgniu" path="res://Scenes/box_engine.tscn" id="6_erx1s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kda83"]
 size = Vector2(64, 128)
@@ -37,3 +38,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_kda83")
+
+[node name="BoxEngine" parent="." instance=ExtResource("6_erx1s")]
+
+[connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]

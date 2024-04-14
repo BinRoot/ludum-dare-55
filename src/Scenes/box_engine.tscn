@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp0u3h78lgniu"]
+
+[ext_resource type="Script" path="res://Scenes/box_engine.gd" id="1_2jld0"]
+
+[node name="BoxEngine" type="Node2D"]
+script = ExtResource("1_2jld0")

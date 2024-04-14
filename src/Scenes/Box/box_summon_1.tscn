@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://u2soe1uj7krd"]
+[gd_scene load_steps=7 format=3 uid="uid://u2soe1uj7krd"]
 
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_jfbnm"]
 [ext_resource type="Script" path="res://Scenes/Box/box_summon_1.gd" id="1_l25rl"]
 [ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="2_2hajb"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="3_lrco4"]
+[ext_resource type="PackedScene" uid="uid://dp0u3h78lgniu" path="res://Scenes/box_engine.tscn" id="5_ltebl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sdbyb"]
 size = Vector2(128, 128)
@@ -42,6 +43,8 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_sdbyb")
+
+[node name="BoxEngine" parent="." instance=ExtResource("5_ltebl")]
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]
 [connection signal="clicked" from="PowerCore2" to="." method="_on_power_core_clicked"]

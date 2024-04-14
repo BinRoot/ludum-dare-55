@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://0rxfvu5fyyub"]
+[gd_scene load_steps=9 format=3 uid="uid://0rxfvu5fyyub"]
 
 [ext_resource type="Script" path="res://Scenes/Box/box_1x_1o.gd" id="1_glbpx"]
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_p20jr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://h8w63a0c5vto" path="res://Scenes/socket.tscn" id="4_6527m"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="5_bbqdh"]
 [ext_resource type="PackedScene" uid="uid://de33n744aur27" path="res://Scenes/turret.tscn" id="6_illbt"]
+[ext_resource type="PackedScene" uid="uid://dp0u3h78lgniu" path="res://Scenes/box_engine.tscn" id="7_o1gkd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ngddi"]
 size = Vector2(112, 48)
@@ -60,5 +61,7 @@ shape = SubResource("RectangleShape2D_ngddi")
 
 [node name="Turret" parent="." instance=ExtResource("6_illbt")]
 position = Vector2(32, 0)
+
+[node name="BoxEngine" parent="." instance=ExtResource("7_o1gkd")]
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]
