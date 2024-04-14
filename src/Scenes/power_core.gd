@@ -4,6 +4,7 @@ signal clicked
 @onready var texture: TextureRect = $TextureRect
 @onready var highlighted_ui: TextureRect = $HighlightedUI
 @onready var original_modulate = texture.modulate
+@onready var polygons = $Polygons
 
 var consumed_by
 
@@ -31,9 +32,11 @@ func _physics_process(delta):
 	if consumed_by == null:
 		texture.modulate = original_modulate
 		highlighted_ui.visible = get_box().is_in_play
+		polygons.visible = true
 	else:
 		texture.modulate = Color.GREEN_YELLOW
 		highlighted_ui.visible = false
+		polygons.visible = false
 
 	
 	if highlighted_ui.visible:

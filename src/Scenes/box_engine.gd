@@ -36,11 +36,11 @@ func _physics_process(_delta):
 			get_parent().owned_by = Globals.PlayerID.NEUTRAL
 			
 	if get_parent().owned_by == Globals.PlayerID.P1:
-		get_parent().modulate = Color.WHITE
+		get_parent().modulate = Color.LIGHT_YELLOW
 	elif get_parent().owned_by == Globals.PlayerID.COM1:
-		get_parent().modulate = Color.LIGHT_CORAL
+		get_parent().modulate = Color.ORANGE
 	else:
-		get_parent().modulate = Color.LIGHT_CYAN
+		get_parent().modulate = Color.BISQUE
 		
 	delete_button.visible = get_parent().is_in_play and get_parent().owned_by == Globals.PlayerID.P1 and get_parent().inputs.size() > 0 and not get_parent().is_relic
 		

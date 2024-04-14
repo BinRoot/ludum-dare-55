@@ -11,6 +11,7 @@ radius = 40.0
 script = ExtResource("1_xgv46")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 modulate = Color(0.639216, 1, 1, 1)
 offset_left = -32.0
 offset_top = -32.0
@@ -32,5 +33,16 @@ offset_bottom = 40.0
 pivot_offset = Vector2(40, 40)
 texture = ExtResource("3_1fifo")
 expand_mode = 1
+
+[node name="Polygons" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Polygons"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -30, 8, -29, 13, -26, 19, -23, 24, -17, 28, -10, 30, -3, 29, 5, 28, 12, 23, 19, 17, 24, 9, 29, 1, 30, -5, 30, -15, 26, -20, 21, -20, 13, -2, 13, -2, 6, -20, 6, -20, -6, -3, -6, -3, -13, -20, -13, -20, -21, -14, -26, -6, -29)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Polygons"]
+scale = Vector2(0.9, 0.9)
+color = Color(0.602129, 0.414828, 0.859793, 1)
+polygon = PackedVector2Array(0, -30, 8, -29, 13, -26, 19, -23, 24, -17, 28, -10, 30, -3, 29, 5, 28, 12, 23, 19, 17, 24, 9, 29, 1, 30, -5, 30, -15, 26, -20, 21, -20, 16, 0, 17, 0, 4.44444, -20, 4.44444, -20, -4.44444, 0, -4.44444, 0, -17, -20, -17, -20, -21, -14, -26, -6, -29)
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

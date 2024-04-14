@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqquic1fte1jx"]
+[gd_scene load_steps=6 format=3 uid="uid://bqquic1fte1jx"]
 
 [ext_resource type="Script" path="res://Scenes/Box/box_root.gd" id="1_xh5wf"]
 [ext_resource type="PackedScene" uid="uid://h8w63a0c5vto" path="res://Scenes/socket.tscn" id="2_33ywh"]
 [ext_resource type="PackedScene" uid="uid://dp0u3h78lgniu" path="res://Scenes/box_engine.tscn" id="3_v5i5j"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="4_ku7ij"]
+[ext_resource type="Texture2D" uid="uid://bjrpyr6neq8ni" path="res://Assets/boat1.png" id="5_uubjy"]
 
 [node name="BoxRoot" type="Node2D"]
 script = ExtResource("1_xh5wf")
@@ -14,3 +15,8 @@ script = ExtResource("1_xh5wf")
 
 [node name="BoxLight" parent="." instance=ExtResource("4_ku7ij")]
 position = Vector2(-10, -60)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-32, -50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_uubjy")

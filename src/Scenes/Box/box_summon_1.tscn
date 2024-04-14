@@ -237,6 +237,23 @@ libraries = {
 "": SubResource("AnimationLibrary_uyx2c")
 }
 
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="."]
+z_index = 999
+position = Vector2(-64, -64)
+
+[node name="Beam" type="Sprite2D" parent="BackBufferCopy2"]
+position = Vector2(128, 208)
+rotation = -0.209678
+scale = Vector2(0.623148, 12)
+texture = ExtResource("6_hu0cn")
+
+[node name="Mask" type="Sprite2D" parent="BackBufferCopy2"]
+material = ExtResource("10_kbo1o")
+position = Vector2(168, 208)
+rotation = -0.253882
+scale = Vector2(7.375, 12.125)
+texture = ExtResource("1_jfbnm")
+
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 z_index = 999
 
@@ -266,23 +283,6 @@ position = Vector2(24, -112)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_s6d62")
 flip_h = true
-
-[node name="BackBufferCopy2" type="BackBufferCopy" parent="."]
-z_index = 999
-position = Vector2(-64, -64)
-
-[node name="Beam" type="Sprite2D" parent="BackBufferCopy2"]
-position = Vector2(128, 208)
-rotation = -0.209678
-scale = Vector2(0.623148, 12)
-texture = ExtResource("6_hu0cn")
-
-[node name="Mask" type="Sprite2D" parent="BackBufferCopy2"]
-material = ExtResource("10_kbo1o")
-position = Vector2(168, 200)
-rotation = -0.274966
-scale = Vector2(7.375, 12.125)
-texture = ExtResource("1_jfbnm")
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]
 [connection signal="clicked" from="PowerCore2" to="." method="_on_power_core_clicked"]

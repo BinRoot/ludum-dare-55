@@ -12,6 +12,7 @@ signal com_summons
 @onready var summon = $BoxSummon1
 @onready var deck = $Deck
 @onready var delay_com_timer = $DelayCOMTimer
+@onready var waves_animation = $WavesAnimation
 
 var is_game_over = false
 
@@ -28,6 +29,7 @@ func _ready():
 	astar_grid.cell_size = Vector2(Globals.params["misc"]["cell_size"], Globals.params["misc"]["cell_size"])
 	astar_grid.update()
 	refresh_grid()
+	waves_animation.play("waves")
 
 
 func refresh_grid():
@@ -119,6 +121,10 @@ static func get_available_input(box):
 
 func establish_connection(path, box, socket, player_id: Globals.PlayerID):
 	var line2d = Line2D.new()
+	if player_id == Globals.PlayerID.P1:
+		line2d.default_color = Color.DARK_SLATE_GRAY
+	else:
+		line2d.default_color = Color.DARK_RED
 	line2d.points = path
 	line_holder.add_child(line2d)
 	get_available_input(box).line2d = line2d
@@ -172,8 +178,12 @@ func get_path_and_socket_to_power_core(selected_pc, player_id: Globals.PlayerID)
 		var path = get_path_from_positions(start_position, target_position)
 		return [path, nearest_socket]
 
-func connect_power_core_to_socket(path, power_core, nearest_socket):
+func connect_power_core_to_socket(path, power_core, nearest_socket, player_id: Globals.PlayerID):
 	var line2d = Line2D.new()
+	if player_id == Globals.PlayerID.P1:
+		line2d.default_color = Color.DARK_SLATE_GRAY
+	else:
+		line2d.default_color = Color.DARK_RED
 	line2d.points = path
 	line_holder.add_child(line2d)
 	power_core.line2d = line2d
@@ -188,7 +198,7 @@ func _on_power_core_clicked(selected_pc):
 		var path = path_and_nearest_socket[0]
 		var nearest_socket = path_and_nearest_socket[1]
 		if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"]:
-			connect_power_core_to_socket(path, selected_pc, nearest_socket)
+			connect_power_core_to_socket(path, selected_pc, nearest_socket, Globals.PlayerID.P1)
 			player_turn_end()
 		else:
 			draw_path(path)
@@ -260,7 +270,7 @@ func player_turn_end():
 			if weakref(box).get_ref():
 				path_size_factor = box.path_size_factor
 			if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"] * path_size_factor:
-				connect_power_core_to_socket(path, power_core, nearest_socket)
+				connect_power_core_to_socket(path, power_core, nearest_socket, Globals.PlayerID.COM1)
 				print("connected power core")
 				is_summon_slot_usable = true
 				break

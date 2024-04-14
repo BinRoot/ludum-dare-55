@@ -6,6 +6,7 @@ extends Node2D
 @onready var original_text_position = texture.position
 @onready var original_texture_modulate = texture.modulate
 @onready var original_texture_scale = texture.scale
+@onready var cannon_sprite: Sprite2D = $CannonSprite
 
 var is_used = false
 var is_primed = false
@@ -24,6 +25,7 @@ func _physics_process(delta):
 	area2d.monitoring = get_box().is_in_play
 	if not is_used and not is_primed:
 		texture.rotation += delta
+		cannon_sprite.rotation += delta
 	if primed_at != null:
 		var vec: Vector2 = primed_at - texture.global_position
 		texture.position += vec * delta
@@ -31,6 +33,7 @@ func _physics_process(delta):
 		texture.position = original_text_position
 	if is_used:
 		texture.visible = false
+		cannon_sprite.visible = false
 	if get_box().is_powered:
 		scale = original_texture_scale
 		modulate = original_texture_modulate
@@ -43,6 +46,7 @@ func _on_area_2d_area_entered(area):
 		
 		var dir_vec = area.global_position - global_position
 		texture.rotation = Vector2.RIGHT.angle_to(dir_vec)
+		cannon_sprite.rotation = Vector2.RIGHT.angle_to(dir_vec)
 		is_primed = true
 		
 		random_timer.wait_time = 1 + randf()
@@ -50,6 +54,7 @@ func _on_area_2d_area_entered(area):
 		await random_timer.timeout
 		
 		primed_at = area.global_position
+		texture.visible = true
 		
 		random_timer.wait_time = 1 + randf()
 		random_timer.start()

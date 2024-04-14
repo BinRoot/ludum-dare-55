@@ -3,6 +3,7 @@ extends Node2D
 var consumed_by
 @onready var texture = $TextureRect
 @onready var original_modulate = texture.modulate 
+@onready var polygons = $polygons
 
 var line2d: Line2D
 
@@ -24,6 +25,8 @@ func _notification(what):
 func _process(delta):
 	if consumed_by == null:
 		texture.modulate = original_modulate
+		polygons.visible = true
 	else:
 		texture.modulate = Color.YELLOW
+		polygons.visible = false
 		

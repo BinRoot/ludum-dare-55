@@ -1,37 +1,81 @@
-[gd_scene load_steps=8 format=3 uid="uid://cf5jsq4i8dlbq"]
+[gd_scene load_steps=11 format=3 uid="uid://cf5jsq4i8dlbq"]
 
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_0w2md"]
 [ext_resource type="Script" path="res://Scenes/Box/box_2o.gd" id="1_vh11e"]
 [ext_resource type="PackedScene" uid="uid://h8w63a0c5vto" path="res://Scenes/socket.tscn" id="2_wimwf"]
+[ext_resource type="Texture2D" uid="uid://ddexs8eem3ugj" path="res://Assets/boat2.png" id="3_h3t35"]
 [ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="3_ti4da"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="5_f2yuu"]
 [ext_resource type="PackedScene" uid="uid://dp0u3h78lgniu" path="res://Scenes/box_engine.tscn" id="6_jqvuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s4o1p"]
-size = Vector2(88, 112)
+size = Vector2(112, 80)
+
+[sub_resource type="Animation" id="Animation_mlhwp"]
+resource_name = "sway"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(24, 32), Vector2(24, 24), Vector2(24, 48), Vector2(24, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0846058, 0.0620522, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3mmip"]
+_data = {
+"sway": SubResource("Animation_mlhwp")
+}
 
 [node name="Box2O" type="Node2D"]
 position = Vector2(-32, -48)
 script = ExtResource("1_vh11e")
 
 [node name="Base" type="TextureRect" parent="."]
+visible = false
 offset_left = -24.0
 offset_top = -8.0
 offset_right = 64.0
 offset_bottom = 104.0
 texture = ExtResource("1_0w2md")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(24, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_h3t35")
+
 [node name="Socket" parent="." instance=ExtResource("2_wimwf")]
-position = Vector2(48, 16)
-
-[node name="PowerCore" parent="." instance=ExtResource("3_ti4da")]
-position = Vector2(-16, 48)
-
-[node name="BoxLight" parent="." instance=ExtResource("5_f2yuu")]
-position = Vector2(0, 8)
+position = Vector2(64, 16)
+scale = Vector2(0.5, 0.5)
 
 [node name="Socket2" parent="." instance=ExtResource("2_wimwf")]
-position = Vector2(48, 80)
+position = Vector2(64, 48)
+scale = Vector2(0.5, 0.5)
+
+[node name="PowerCore" parent="." instance=ExtResource("3_ti4da")]
+position = Vector2(-24, 32)
+scale = Vector2(0.5, 0.5)
+
+[node name="BoxLight" parent="." instance=ExtResource("5_f2yuu")]
+position = Vector2(24, 8)
 
 [node name="Polygon2D" type="Polygon2D" parent="." groups=["is_solid"]]
 polygon = PackedVector2Array(-40, -24, 80, 120)
@@ -41,9 +85,14 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(20, 48)
+position = Vector2(24, 32)
 shape = SubResource("RectangleShape2D_s4o1p")
 
 [node name="BoxEngine" parent="." instance=ExtResource("6_jqvuu")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3mmip")
+}
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]

@@ -1,36 +1,76 @@
-[gd_scene load_steps=8 format=3 uid="uid://bb2aeoc04jw1e"]
+[gd_scene load_steps=11 format=3 uid="uid://bb2aeoc04jw1e"]
 
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_1u8en"]
 [ext_resource type="Script" path="res://Scenes/Box/box_2x.gd" id="1_cmuwt"]
 [ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="2_cf2gn"]
 [ext_resource type="PackedScene" uid="uid://de33n744aur27" path="res://Scenes/turret.tscn" id="3_hpqyi"]
+[ext_resource type="Texture2D" uid="uid://ceuh86jc5do5g" path="res://Assets/boat4.png" id="3_xsyf8"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="4_33nvx"]
 [ext_resource type="PackedScene" uid="uid://dp0u3h78lgniu" path="res://Scenes/box_engine.tscn" id="6_erx1s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kda83"]
-size = Vector2(64, 128)
+size = Vector2(64, 144)
+
+[sub_resource type="Animation" id="Animation_husrl"]
+resource_name = "sway"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 4.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.014308, 0.0214769, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_22xx4"]
+_data = {
+"sway": SubResource("Animation_husrl")
+}
 
 [node name="Box2X" type="Node2D"]
 script = ExtResource("1_cmuwt")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_left = -32.0
 offset_top = -64.0
 offset_right = 32.0
 offset_bottom = 64.0
 texture = ExtResource("1_1u8en")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_xsyf8")
+
 [node name="PowerCore" parent="." instance=ExtResource("2_cf2gn")]
-position = Vector2(-32, 0)
+position = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
 
 [node name="Turret" parent="." instance=ExtResource("3_hpqyi")]
-position = Vector2(24, -56)
+position = Vector2(0, -40)
 
 [node name="Turret2" parent="." instance=ExtResource("3_hpqyi")]
-position = Vector2(24, 56)
+position = Vector2(0, 24)
 
 [node name="BoxLight" parent="." instance=ExtResource("4_33nvx")]
-position = Vector2(-32, -64)
+position = Vector2(0, -64)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
@@ -40,5 +80,10 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_kda83")
 
 [node name="BoxEngine" parent="." instance=ExtResource("6_erx1s")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_22xx4")
+}
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]

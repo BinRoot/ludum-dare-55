@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://0rxfvu5fyyub"]
+[gd_scene load_steps=12 format=3 uid="uid://0rxfvu5fyyub"]
 
 [ext_resource type="Script" path="res://Scenes/Box/box_1x_1o.gd" id="1_glbpx"]
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_p20jr"]
@@ -7,14 +7,62 @@
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="5_bbqdh"]
 [ext_resource type="PackedScene" uid="uid://de33n744aur27" path="res://Scenes/turret.tscn" id="6_illbt"]
 [ext_resource type="PackedScene" uid="uid://dp0u3h78lgniu" path="res://Scenes/box_engine.tscn" id="7_o1gkd"]
+[ext_resource type="Texture2D" uid="uid://mu67b0qlplya" path="res://Assets/boat3.png" id="8_dpvf6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ngddi"]
-size = Vector2(112, 48)
+size = Vector2(120, 64)
+
+[sub_resource type="Animation" id="Animation_bq8bf"]
+resource_name = "sway"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0842316, 0.117407, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 8), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Turret:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(39.8742, -9.44468), Vector2(34, -21), Vector2(40, 2), Vector2(39.8742, -9.44468)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mrbb5"]
+_data = {
+"sway": SubResource("Animation_bq8bf")
+}
 
 [node name="Box1X1O" type="Node2D"]
 script = ExtResource("1_glbpx")
 
 [node name="Base" type="TextureRect" parent="."]
+visible = false
 offset_left = -56.0
 offset_top = -24.0
 offset_right = 56.0
@@ -23,6 +71,7 @@ texture = ExtResource("1_p20jr")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
 modulate = Color(0.690196, 0.635294, 0.917647, 1)
 offset_left = -16.0
 offset_right = 8.0
@@ -31,6 +80,7 @@ texture = ExtResource("1_p20jr")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="."]
+visible = false
 offset_left = -48.0
 offset_top = -16.0
 offset_right = -24.0
@@ -38,16 +88,20 @@ offset_bottom = 8.0
 texture = ExtResource("1_p20jr")
 expand_mode = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_dpvf6")
+
 [node name="PowerCore" parent="." instance=ExtResource("3_lrfjq")]
-position = Vector2(-36, -4)
+position = Vector2(-56, -8)
 scale = Vector2(0.5, 0.5)
 
 [node name="Socket" parent="." instance=ExtResource("4_6527m")]
-position = Vector2(-4, 13)
-scale = Vector2(0.6, 0.6)
+position = Vector2(0, 16)
+scale = Vector2(0.5, 0.5)
 
 [node name="BoxLight" parent="." instance=ExtResource("5_bbqdh")]
-position = Vector2(50, -26)
+position = Vector2(-8, -24)
 
 [node name="Polygon2D" type="Polygon2D" parent="." groups=["is_solid"]]
 polygon = PackedVector2Array(-64, -32, 64, 32)
@@ -57,11 +111,18 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_ngddi")
 
-[node name="Turret" parent="." instance=ExtResource("6_illbt")]
-position = Vector2(32, 0)
-
 [node name="BoxEngine" parent="." instance=ExtResource("7_o1gkd")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mrbb5")
+}
+
+[node name="Turret" parent="." instance=ExtResource("6_illbt")]
+position = Vector2(39.8742, -9.44468)
+rotation = 0.154332
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]

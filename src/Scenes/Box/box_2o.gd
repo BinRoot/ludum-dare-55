@@ -8,8 +8,13 @@ signal power_core_clicked
 @onready var box_light = $BoxLight
 @onready var inputs = [$PowerCore]
 @onready var outputs = [$Socket, $Socket2]
+@onready var animation = $AnimationPlayer
 
 var is_powered = false
 
 func _on_power_core_clicked(pc):
 	emit_signal("power_core_clicked", pc)
+
+func _physics_process(delta):
+	if is_in_play:
+		animation.play("sway")

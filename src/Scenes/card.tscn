@@ -11,6 +11,7 @@ size = Vector2(128, 128)
 script = ExtResource("1_ekduy")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.324645, 0.471079, 0.504105, 1)
 offset_left = -64.0
 offset_top = -64.0
 offset_right = 64.0
@@ -28,9 +29,9 @@ shape = SubResource("RectangleShape2D_npd3f")
 layout_mode = 3
 anchors_preset = 0
 offset_left = -64.0
-offset_top = 64.0
+offset_top = 48.0
 offset_right = 64.0
-offset_bottom = 96.0
+offset_bottom = 80.0
 
 [node name="TextureRect" type="TextureRect" parent="Subtype1"]
 modulate = Color(0.839216, 0.654902, 0.227451, 1)
@@ -51,9 +52,9 @@ expand_mode = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -64.0
-offset_top = 64.0
+offset_top = 48.0
 offset_right = 64.0
-offset_bottom = 96.0
+offset_bottom = 80.0
 
 [node name="TextureRect" type="TextureRect" parent="Subtype2"]
 modulate = Color(0.839216, 0.654902, 0.227451, 1)
@@ -89,9 +90,9 @@ expand_mode = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -64.0
-offset_top = 64.0
+offset_top = 48.0
 offset_right = 64.0
-offset_bottom = 96.0
+offset_bottom = 80.0
 
 [node name="TextureRect" type="TextureRect" parent="Subtype3"]
 modulate = Color(0.839216, 0.654902, 0.227451, 1)
