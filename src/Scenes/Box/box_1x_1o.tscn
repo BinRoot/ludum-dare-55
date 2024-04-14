@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://0rxfvu5fyyub"]
+[gd_scene load_steps=8 format=3 uid="uid://0rxfvu5fyyub"]
 
 [ext_resource type="Script" path="res://Scenes/Box/box_1x_1o.gd" id="1_glbpx"]
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_p20jr"]
 [ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="3_lrfjq"]
 [ext_resource type="PackedScene" uid="uid://h8w63a0c5vto" path="res://Scenes/socket.tscn" id="4_6527m"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="5_bbqdh"]
+[ext_resource type="PackedScene" uid="uid://de33n744aur27" path="res://Scenes/turret.tscn" id="6_illbt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngddi"]
+size = Vector2(112, 48)
 
 [node name="Box1X1O" type="Node2D"]
 script = ExtResource("1_glbpx")
@@ -14,15 +18,6 @@ offset_left = -56.0
 offset_top = -24.0
 offset_right = 56.0
 offset_bottom = 24.0
-texture = ExtResource("1_p20jr")
-expand_mode = 1
-
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(1, 0.717647, 0.647059, 1)
-offset_left = 16.0
-offset_top = -16.0
-offset_right = 48.0
-offset_bottom = 16.0
 texture = ExtResource("1_p20jr")
 expand_mode = 1
 
@@ -55,5 +50,15 @@ position = Vector2(50, -26)
 
 [node name="Polygon2D" type="Polygon2D" parent="." groups=["is_solid"]]
 polygon = PackedVector2Array(-64, -32, 64, 32)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ngddi")
+
+[node name="Turret" parent="." instance=ExtResource("6_illbt")]
+position = Vector2(32, 0)
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://de33n744aur27"]
+
+[ext_resource type="Script" path="res://Scenes/turret.gd" id="1_vhndu"]
+[ext_resource type="Texture2D" uid="uid://c53po7h1wtipw" path="res://Assets/yellow_arrow.svg" id="2_t4bv7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n8q8j"]
+radius = 160.798
+
+[node name="Turret" type="Node2D"]
+script = ExtResource("1_vhndu")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+pivot_offset = Vector2(16, 16)
+texture = ExtResource("2_t4bv7")
+expand_mode = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_n8q8j")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

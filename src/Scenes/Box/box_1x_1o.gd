@@ -29,3 +29,7 @@ func _physics_process(_delta):
 
 func _on_power_core_clicked(pc):
 	emit_signal("power_core_clicked", pc)
+
+
+func _on_turret_area_entered(area):
+	prints(area, area.get_parent())

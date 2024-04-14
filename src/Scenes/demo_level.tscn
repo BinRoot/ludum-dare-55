@@ -32,7 +32,7 @@ offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 100
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -53,5 +53,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "Try Again"
 
+[connection signal="com_summons" from="Kernel" to="." method="_on_kernel_com_summons"]
 [connection signal="out_of_sockets" from="Kernel" to="." method="_on_kernel_out_of_sockets"]
+[connection signal="player_summons" from="Kernel" to="." method="_on_kernel_player_summons"]
 [connection signal="pressed" from="GameOverUI/Button" to="." method="_on_button_pressed"]

@@ -10,7 +10,7 @@ enum PlayerID { P1, COM1, NEUTRAL }
 
 @onready var settings_ui = preload("res://Scenes/settings_ui.tscn")
 
-enum CardTypes { card1, card2 }
+enum CardTypes { card1, card2, card3 }
 
 var card_types = {
 	CardTypes.card1: {
@@ -18,6 +18,9 @@ var card_types = {
 	},
 	CardTypes.card2: {
 		'resource_path': preload('res://Scenes/Box/box_2o.tscn')
+	},
+	CardTypes.card3: {
+		'resource_path': preload('res://Scenes/Box/box_2x.tscn')
 	}
 }
 

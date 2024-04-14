@@ -7,6 +7,8 @@ signal clicked
 
 var consumed_by
 
+var line2d: Line2D
+
 var is_selected = false
 
 func _ready():
@@ -14,6 +16,13 @@ func _ready():
 
 func is_powered():
 	return consumed_by != null and consumed_by.is_powered
+
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE and line2d != null:
+		prints(name, ' freeing')
+		var wf = weakref(line2d)
+		if wf.get_ref():
+			line2d.queue_free()
 
 func get_box():
 	return get_parent()

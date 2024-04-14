@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bb2aeoc04jw1e"]
+
+[ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_1u8en"]
+[ext_resource type="Script" path="res://Scenes/Box/box_2x.gd" id="1_cmuwt"]
+[ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="2_cf2gn"]
+[ext_resource type="PackedScene" uid="uid://de33n744aur27" path="res://Scenes/turret.tscn" id="3_hpqyi"]
+[ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="4_33nvx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kda83"]
+size = Vector2(64, 128)
+
+[node name="Box2X" type="Node2D"]
+script = ExtResource("1_cmuwt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+offset_bottom = 64.0
+texture = ExtResource("1_1u8en")
+
+[node name="PowerCore" parent="." instance=ExtResource("2_cf2gn")]
+position = Vector2(-32, 0)
+
+[node name="Turret" parent="." instance=ExtResource("3_hpqyi")]
+position = Vector2(24, -56)
+
+[node name="Turret2" parent="." instance=ExtResource("3_hpqyi")]
+position = Vector2(24, 56)
+
+[node name="BoxLight" parent="." instance=ExtResource("4_33nvx")]
+position = Vector2(-32, -64)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_kda83")

@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://u2soe1uj7krd"]
+[gd_scene load_steps=6 format=3 uid="uid://u2soe1uj7krd"]
 
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_jfbnm"]
 [ext_resource type="Script" path="res://Scenes/Box/box_summon_1.gd" id="1_l25rl"]
 [ext_resource type="PackedScene" uid="uid://bsbem8bswoigv" path="res://Scenes/power_core.tscn" id="2_2hajb"]
 [ext_resource type="PackedScene" uid="uid://cwhmux7f5qpgq" path="res://Scenes/box_light.tscn" id="3_lrco4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sdbyb"]
+size = Vector2(128, 128)
 
 [node name="BoxSummon1" type="Node2D"]
 script = ExtResource("1_l25rl")
@@ -32,6 +35,13 @@ position = Vector2(56, -64)
 
 [node name="Polygon2D" type="Polygon2D" parent="." groups=["is_solid"]]
 polygon = PackedVector2Array(-96, -96, 96, 96)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_sdbyb")
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]
 [connection signal="clicked" from="PowerCore2" to="." method="_on_power_core_clicked"]

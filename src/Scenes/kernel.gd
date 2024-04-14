@@ -1,5 +1,7 @@
 extends Node2D
 signal out_of_sockets
+signal player_summons
+signal com_summons
 
 @onready var map_ref_rect: ReferenceRect = $MapReferenceRect
 @onready var line_for_power_core_distance = $LineHolder/PowerCoreLine2D
@@ -103,7 +105,9 @@ func establish_connection(path, box, socket, player_id: Globals.PlayerID):
 	var line2d = Line2D.new()
 	line2d.points = path
 	line_holder.add_child(line2d)
+	get_available_input(box).line2d = line2d
 	get_available_input(box).consumed_by = socket.get_box()
+	socket.line2d = line2d
 	socket.consumed_by = box
 	box.is_in_play = true
 	refresh_sockets_array()
@@ -145,8 +149,10 @@ func connect_power_core_to_socket(path, power_core, nearest_socket):
 	var line2d = Line2D.new()
 	line2d.points = path
 	line_holder.add_child(line2d)
+	power_core.line2d = line2d
 	power_core.consumed_by = nearest_socket.get_box()
 	nearest_socket.consumed_by = power_core.get_box()
+	nearest_socket.line2d = line2d
 	game_over_checker.start()
 
 func _on_power_core_clicked(selected_pc):
@@ -162,6 +168,22 @@ func _on_power_core_clicked(selected_pc):
 
 
 func _on_game_over_checker_timeout():
+	var num_summon_inputs_owned_by_p1 = 0
+	var num_summon_inputs_owned_by_com = 0
+	for summon_input in summon.inputs:
+		if summon_input.consumed_by != null:
+			if summon_input.consumed_by.owned_by == Globals.PlayerID.P1:
+				num_summon_inputs_owned_by_p1 += 1
+			elif summon_input.consumed_by.owned_by == Globals.PlayerID.COM1:
+				num_summon_inputs_owned_by_com += 1
+	if num_summon_inputs_owned_by_p1 == summon.inputs.size():
+		emit_signal("player_summons")
+		return
+	elif num_summon_inputs_owned_by_com == summon.inputs.size():
+		emit_signal("com_summons")
+		return
+	prints('game over check ', num_summon_inputs_owned_by_p1, ' ', num_summon_inputs_owned_by_com)
+		
 	var is_socket_available = false
 	for socket in sockets:
 		var socket_weak_ref = weakref(socket)
@@ -171,8 +193,8 @@ func _on_game_over_checker_timeout():
 		if (box.owned_by == Globals.PlayerID.P1 or box.owned_by == Globals.PlayerID.NEUTRAL) and box.is_powered and socket.consumed_by == null and box.is_in_play:
 			is_socket_available = true
 	if not is_socket_available:
-		print("out of sockets")
 		emit_signal("out_of_sockets")
+		return
 
 func player_turn_end():
 	print("AI Turn")
@@ -237,6 +259,7 @@ func player_turn_end():
 	if best_placement != null:
 		prints('best placement: ', best_placement)
 		ai_selected_box.global_position = best_placement
+		ai_selected_box.is_in_play = true
 		establish_connection(best_path, ai_selected_box, best_socket, Globals.PlayerID.COM1)
 	else:
 		prints('no placement found ')
