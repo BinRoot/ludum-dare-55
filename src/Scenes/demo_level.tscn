@@ -53,7 +53,32 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "Try Again"
 
+[node name="HintUI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="HintUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HintTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="com_summons" from="Kernel" to="." method="_on_kernel_com_summons"]
 [connection signal="out_of_sockets" from="Kernel" to="." method="_on_kernel_out_of_sockets"]
 [connection signal="player_summons" from="Kernel" to="." method="_on_kernel_player_summons"]
 [connection signal="pressed" from="GameOverUI/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="HintTimer" to="." method="_on_hint_timer_timeout"]

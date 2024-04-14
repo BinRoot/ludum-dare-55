@@ -50,3 +50,7 @@ func _on_save_button_pressed():
 	queue_free()
 
 
+
+
+func _on_button_pressed():
+	get_tree().reload_current_scene()

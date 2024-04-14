@@ -1,5 +1,6 @@
 extends Node2D
 signal box_selected
+signal box_unselected
 
 @onready var card_res = preload("res://Scenes/card.tscn")
 @onready var ref_rect = $ReferenceRect
@@ -16,13 +17,19 @@ func draw_cards():
 	for card in card_holder.get_children():
 		card.queue_free()
 	current_cards.clear()
+	var is_all_card3 = true 
 	for i in range(0, max_num_cards):
 		var card: Node = card_res.instantiate()
 		current_cards.append(card)
 		card.card_type = randi_range(0, Globals.CardTypes.values().size() - 1)
+		if card.card_type != Globals.CardTypes.card3:
+			is_all_card3 = false
+		if is_all_card3 and i == max_num_cards - 1:
+			card.card_type = 0
 		card_holder.add_child(card)
 		card.connect("card_hovered", _on_card_hovered)
 		card.connect("card_selected", _on_card_selected)
+		card.connect("card_unselected", _on_card_unselected)
 	reposition_cards()
 
 func reposition_cards():
@@ -44,4 +51,6 @@ func _on_card_hovered(card):
 
 func _on_card_selected(card):
 	emit_signal("box_selected", card.get_card_res())
-	draw_cards()
+
+func _on_card_unselected():
+	emit_signal("box_unselected")

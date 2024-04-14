@@ -10,6 +10,8 @@ signal com_summons
 @onready var line_gradient: Gradient = Gradient.new()
 @onready var game_over_checker: Timer = $GameOverChecker
 @onready var summon = $BoxSummon1
+@onready var deck = $Deck
+@onready var delay_com_timer = $DelayCOMTimer
 
 var selected_box
 
@@ -21,7 +23,7 @@ var is_player_turn = true
 func _ready():
 	refresh_sockets_array()
 	astar_grid.region = map_ref_rect.get_rect()
-	astar_grid.cell_size = Vector2(32, 32)
+	astar_grid.cell_size = Vector2(Globals.params["misc"]["cell_size"], Globals.params["misc"]["cell_size"])
 	astar_grid.update()
 	refresh_grid()
 
@@ -57,6 +59,11 @@ func get_nearest_socket(reference_position: Vector2, player_id: Globals.PlayerID
 		else:
 			if socket.global_position.distance_to(reference_position) < nearest_socket.global_position.distance_to(reference_position):
 				nearest_socket = socket
+	if nearest_socket != null:
+		if player_id == Globals.PlayerID.P1 and nearest_socket.global_position.distance_to(reference_position) < 5:
+			return
+		if player_id == Globals.PlayerID.COM1 and nearest_socket.global_position.distance_to(reference_position) < 150:
+			return
 	return nearest_socket
 
 func get_grid_coord_from_position(pos: Vector2):
@@ -87,13 +94,17 @@ func draw_path(path):
 
 func _physics_process(_delta):
 	if selected_box != null:
-		selected_box.position = get_global_mouse_position()
+		var grid_pos = get_grid_coord_from_position(get_global_mouse_position())
+		var fixed_pos = astar_grid.get_point_position(grid_pos)
+		selected_box.position = fixed_pos
 		var nearest_socket = get_nearest_socket(selected_box.global_position, Globals.PlayerID.P1)
 		if nearest_socket != null:
 			var start_position = get_available_input(selected_box).global_position
 			var target_position = nearest_socket.global_position
 			var path = get_path_from_positions(start_position, target_position)
 			draw_path(path)
+		else:
+			line_for_power_core_distance.clear_points()
 
 
 static func get_available_input(box):
@@ -131,13 +142,16 @@ func _input(event):
 				var path = get_path_from_positions(start_position, target_position)
 				if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"]:
 					establish_connection(path, selected_box, nearest_socket, Globals.PlayerID.P1)
-			line_for_power_core_distance.points = []
+			line_for_power_core_distance.clear_points()
+		elif event.is_pressed():
+			line_for_power_core_distance.clear_points()
 
 
 func _on_deck_box_selected(card_res: Resource):
-	selected_box = card_res.instantiate()
-	add_child(selected_box)
-	selected_box.connect("power_core_clicked", _on_power_core_clicked)
+	if selected_box == null:
+		selected_box = card_res.instantiate()
+		add_child(selected_box)
+		selected_box.connect("power_core_clicked", _on_power_core_clicked)
 
 func get_path_and_socket_to_power_core(selected_pc, player_id: Globals.PlayerID):
 	var nearest_socket = get_nearest_socket(selected_pc.global_position, player_id)
@@ -199,14 +213,20 @@ func _on_game_over_checker_timeout():
 		return
 
 func player_turn_end():
+	delay_com_timer.start()
+	await delay_com_timer.timeout
 	print("AI Turn")
 	# any open power_core to click?
+	var is_summon_slot_usable = false
 	var power_cores = get_tree().get_nodes_in_group("power")
+	var box_with_power_core
 	for power_core in power_cores:
 		var power_core_weak_ref = weakref(power_core)
 		if !power_core_weak_ref.get_ref():
 			continue
 		var box = power_core.get_box()
+		if box.owned_by == Globals.PlayerID.COM1:
+			box_with_power_core = box
 		if power_core.consumed_by != null:
 			continue
 		if box.owned_by != Globals.PlayerID.COM1 and box.owned_by != Globals.PlayerID.NEUTRAL:
@@ -221,53 +241,61 @@ func player_turn_end():
 			if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"]:
 				connect_power_core_to_socket(path, power_core, nearest_socket)
 				print("connected power core")
-				return
-
-	var card_type = randi_range(0, Globals.CardTypes.values().size() - 1)
-	var card_res = Globals.card_types[card_type]["resource_path"]
-	var ai_selected_box = card_res.instantiate()
-	add_child(ai_selected_box)
-	ai_selected_box.owned_by = Globals.PlayerID.COM1
-	ai_selected_box.position = Vector2(-1000, -1000)
-	refresh_sockets_array()
-
-	var max_coord = get_grid_coord_from_position(astar_grid.size)
-	var grid_pos: Vector2 = astar_grid.region.position
-	var grid_size: Vector2 = astar_grid.region.size
-	var min_distance_to_summon = 99999
-	var best_placement
-	var best_path
-	var best_socket
-
-	for i in range(100):
-		var rand_x_coord = randi_range(grid_pos.x, grid_pos.x + grid_size.x)
-		var rand_y_coord = randi_range(grid_pos.y, grid_pos.y + grid_size.y)
-		var candidate_pos = Vector2(rand_x_coord, rand_y_coord)
-		#ai_selected_box.position = candidate_pos
-		var socket = get_nearest_socket(candidate_pos, Globals.PlayerID.COM1)
-		if socket == null:
-			continue
-		var grid_id_coord = get_grid_coord_from_position(Vector2(rand_x_coord, rand_y_coord))
-		var path = get_path_from_positions(candidate_pos, socket.global_position)
-		if path.size() == 0 or path.size() > Globals.params.misc["max_path_length"]:
-			continue
-		var distance_to_summon = summon.global_position.distance_to(candidate_pos)
-		if distance_to_summon < min_distance_to_summon:
-			min_distance_to_summon = distance_to_summon
-			best_placement = candidate_pos
-			best_path = path
-			best_socket = socket
-
-	if best_placement != null:
-		prints('best placement: ', best_placement)
-		ai_selected_box.global_position = best_placement
-		ai_selected_box.is_in_play = true
-		ai_selected_box.connect("power_core_clicked", _on_power_core_clicked)
-		establish_connection(best_path, ai_selected_box, best_socket, Globals.PlayerID.COM1)
-	else:
-		prints('no placement found ')
+				is_summon_slot_usable = true
+				break
+	if not is_summon_slot_usable:
+		var card_type = randi_range(0, Globals.CardTypes.values().size() - 1)
+		var card_res = Globals.card_types[card_type]["resource_path"]
+		var ai_selected_box = card_res.instantiate()
+		add_child(ai_selected_box)
+		ai_selected_box.owned_by = Globals.PlayerID.COM1
 		ai_selected_box.position = Vector2(-1000, -1000)
-		ai_selected_box.queue_free()
+		refresh_sockets_array()
+
+		var max_coord = get_grid_coord_from_position(astar_grid.size)
+		var grid_pos: Vector2 = astar_grid.region.position
+		var grid_size: Vector2 = astar_grid.region.size
+		var min_distance_to_summon = 99999
+		var best_placement
+		var best_path
+		var best_socket
+
+		for i in range(100):
+			var rand_x_coord = randi_range(grid_pos.x, grid_pos.x + grid_size.x)
+			var rand_y_coord = randi_range(grid_pos.y, grid_pos.y + grid_size.y)
+			var candidate_pos = Vector2(rand_x_coord, rand_y_coord)
+			#ai_selected_box.position = candidate_pos
+			var socket = get_nearest_socket(candidate_pos, Globals.PlayerID.COM1)
+			if socket == null:
+				continue
+			var grid_id_coord = get_grid_coord_from_position(Vector2(rand_x_coord, rand_y_coord))
+			var path = get_path_from_positions(candidate_pos, socket.global_position)
+			if path.size() == 0 or path.size() > Globals.params.misc["max_path_length"]:
+				continue
+			var distance_to_summon = summon.global_position.distance_to(candidate_pos)
+			if distance_to_summon < min_distance_to_summon:
+				min_distance_to_summon = distance_to_summon
+				best_placement = candidate_pos
+				best_path = path
+				best_socket = socket
+
+		if best_placement != null:
+			prints('best placement: ', best_placement)
+			ai_selected_box.global_position = best_placement
+			ai_selected_box.is_in_play = true
+			ai_selected_box.connect("power_core_clicked", _on_power_core_clicked)
+			establish_connection(best_path, ai_selected_box, best_socket, Globals.PlayerID.COM1)
+		else:
+			prints('no placement found ')
+			ai_selected_box.position = Vector2(-1000, -1000)
+			ai_selected_box.queue_free()
+			box_with_power_core.queue_free()
+	deck.draw_cards()	
 
 	# estimate value
 	# randomly pick between top 5 options?
+
+
+func _on_deck_box_unselected():
+	selected_box.queue_free()
+	selected_box = null

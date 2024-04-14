@@ -1,8 +1,7 @@
 extends Node2D
 
+@onready var delete_button: Button = $DeleteButton
 
-
-# parent must be a box
 
 func _physics_process(_delta):
 	# all inputs must be consumed by a powered box for this box to be powered
@@ -44,3 +43,9 @@ func _physics_process(_delta):
 	else:
 		get_parent().modulate = Color.LIGHT_CYAN
 		
+	delete_button.visible = get_parent().is_in_play and get_parent().owned_by == Globals.PlayerID.P1 and get_parent().inputs.size() > 0 and not get_parent().is_relic
+		
+
+
+func _on_delete_button_pressed():
+	get_parent().queue_free()

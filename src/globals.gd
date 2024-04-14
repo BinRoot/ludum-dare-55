@@ -3,6 +3,7 @@ extends Node
 var params = {
 	"misc": {
 		"max_path_length": 10,
+		"cell_size": 32
 	}
 }
 
