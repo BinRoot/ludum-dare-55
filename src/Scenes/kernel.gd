@@ -300,7 +300,7 @@ func player_turn_end():
 		var best_path
 		var best_socket
 
-		for i in range(300):
+		for i in range(400):
 			var rand_x_coord = randi_range(grid_pos.x, grid_pos.x + grid_size.x)
 			var rand_y_coord = randi_range(grid_pos.y, grid_pos.y + grid_size.y)
 			var candidate_pos = Vector2(rand_x_coord, rand_y_coord)

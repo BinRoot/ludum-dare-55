@@ -70,17 +70,17 @@ width_curve = SubResource("Curve_kq2lw")
 default_color = Color(0.192157, 0.192157, 0.192157, 1)
 
 [node name="BoxRoot" parent="." instance=ExtResource("3_k6w42")]
-position = Vector2(136, 104)
+position = Vector2(132, 450)
 is_in_play = true
 owned_by = 0
 
 [node name="BoxRoot2" parent="." instance=ExtResource("3_k6w42")]
-position = Vector2(136, 800)
+position = Vector2(952, 469)
 is_in_play = true
 owned_by = 1
 
 [node name="BoxSummon1" parent="." instance=ExtResource("4_5i6nd")]
-position = Vector2(1720, 376)
+position = Vector2(1742, 414)
 is_in_play = true
 
 [node name="GameOverChecker" type="Timer" parent="."]

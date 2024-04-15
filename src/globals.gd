@@ -13,10 +13,14 @@ enum PlayerID { P1, COM1, NEUTRAL }
 
 var is_violent = false
 
-enum CardTypes { card1a, card1b, card1c, card2a, card2b, card2c, card3a, card3b, card3c }
+enum CardTypes { card1a, card1a2, card1b, card1c, card2a, card2a2, card2b, card2c, card3a, card3b, card3c }
 
 var card_types = {
 	CardTypes.card1a: {
+		'resource_path': preload('res://Scenes/Box/box_1x_1o.tscn'),
+		'path_size_factor': 1,
+	},
+	CardTypes.card1a2: {
 		'resource_path': preload('res://Scenes/Box/box_1x_1o.tscn'),
 		'path_size_factor': 1,
 	},
@@ -29,6 +33,10 @@ var card_types = {
 		'path_size_factor': 3,
 	},
 	CardTypes.card2a: {
+		'resource_path': preload('res://Scenes/Box/box_2o.tscn'),
+		'path_size_factor': 1,
+	},
+	CardTypes.card2a2: {
 		'resource_path': preload('res://Scenes/Box/box_2o.tscn'),
 		'path_size_factor': 1,
 	},
