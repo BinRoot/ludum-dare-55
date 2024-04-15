@@ -1,7 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://chviof5mg6mnp"]
+[gd_scene load_steps=17 format=3 uid="uid://chviof5mg6mnp"]
 
 [ext_resource type="PackedScene" uid="uid://c3g28rj6s7o3l" path="res://Scenes/kernel.tscn" id="1_1owam"]
 [ext_resource type="Script" path="res://Scenes/demo_level.gd" id="1_ox0o4"]
+[ext_resource type="AudioStream" uid="uid://c538aewgw2xep" path="res://Assets/beat_a.wav" id="3_turwf"]
+[ext_resource type="AudioStream" uid="uid://bci0syxefcfxj" path="res://Assets/beat_b.wav" id="4_gvhg1"]
+[ext_resource type="AudioStream" uid="uid://ckytnkbxnbe05" path="res://Assets/beat_c.wav" id="5_8hemc"]
+[ext_resource type="AudioStream" uid="uid://roq3p8jwdcge" path="res://Assets/beat_d.wav" id="6_8h5ha"]
+[ext_resource type="AudioStream" uid="uid://8unhm3iiw2h7" path="res://Assets/bass_a.wav" id="7_p5wem"]
+[ext_resource type="AudioStream" uid="uid://coduclkle5w6l" path="res://Assets/bass_b.wav" id="8_l8c22"]
+[ext_resource type="AudioStream" uid="uid://bo03s7mu11axp" path="res://Assets/bass_c.wav" id="9_3s4pt"]
+[ext_resource type="AudioStream" uid="uid://hei36q6nwcsp" path="res://Assets/bass_d.wav" id="10_b31ns"]
+[ext_resource type="AudioStream" uid="uid://duhqfpsrkjr25" path="res://Assets/lead_a.wav" id="11_n6yyq"]
+[ext_resource type="AudioStream" uid="uid://c5hwge1gaq7xp" path="res://Assets/lead_b.wav" id="12_mo0k3"]
+[ext_resource type="AudioStream" uid="uid://c13ncr6n1c6yc" path="res://Assets/lead_c.wav" id="13_s67pb"]
+[ext_resource type="AudioStream" uid="uid://b8k5v7f2nhgu5" path="res://Assets/lead_d.wav" id="14_4iucs"]
+[ext_resource type="AudioStream" uid="uid://dwr8n3bctyoye" path="res://Assets/synth_a.wav" id="15_3ge6n"]
+[ext_resource type="AudioStream" uid="uid://dkcwsiuqdmbgp" path="res://Assets/synth_b.wav" id="16_borgs"]
 
 [node name="DemoLevel" type="Node2D"]
 script = ExtResource("1_ox0o4")
@@ -63,22 +77,72 @@ mouse_filter = 2
 
 [node name="Label" type="Label" parent="HintUI"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.5
+offset_top = 32.0
+offset_right = 46.5
+offset_bottom = 101.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "test"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HintTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 one_shot = true
 
+[node name="BeatA" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_turwf")
+
+[node name="BeatB" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_gvhg1")
+
+[node name="BeatC" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8hemc")
+
+[node name="BeatD" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8h5ha")
+
+[node name="BassA" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_p5wem")
+
+[node name="BassB" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_l8c22")
+
+[node name="BassC" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_3s4pt")
+
+[node name="BassD" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_b31ns")
+
+[node name="LeadA" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_n6yyq")
+
+[node name="LeadB" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_mo0k3")
+
+[node name="LeadC" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_s67pb")
+
+[node name="LeadD" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_4iucs")
+
+[node name="SynthA" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_3ge6n")
+
+[node name="SynthB" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_borgs")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
+
+[connection signal="box_placed" from="Kernel" to="." method="_on_kernel_box_placed"]
 [connection signal="com_summons" from="Kernel" to="." method="_on_kernel_com_summons"]
 [connection signal="out_of_sockets" from="Kernel" to="." method="_on_kernel_out_of_sockets"]
 [connection signal="player_summons" from="Kernel" to="." method="_on_kernel_player_summons"]
 [connection signal="pressed" from="GameOverUI/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="HintTimer" to="." method="_on_hint_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

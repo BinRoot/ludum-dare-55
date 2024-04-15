@@ -45,7 +45,7 @@ _data = {
 "sway": SubResource("Animation_mlhwp")
 }
 
-[node name="Box2O" type="Node2D"]
+[node name="Box2O" type="Node2D" groups=["box"]]
 position = Vector2(-32, -48)
 script = ExtResource("1_vh11e")
 
@@ -56,11 +56,6 @@ offset_top = -8.0
 offset_right = 64.0
 offset_bottom = 104.0
 texture = ExtResource("1_0w2md")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(24, 32)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_h3t35")
 
 [node name="Socket" parent="." instance=ExtResource("2_wimwf")]
 position = Vector2(64, 16)
@@ -73,6 +68,11 @@ scale = Vector2(0.5, 0.5)
 [node name="PowerCore" parent="." instance=ExtResource("3_ti4da")]
 position = Vector2(-24, 32)
 scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(24, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_h3t35")
 
 [node name="BoxLight" parent="." instance=ExtResource("5_f2yuu")]
 position = Vector2(24, 8)

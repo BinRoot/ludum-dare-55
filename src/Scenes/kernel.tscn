@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3g28rj6s7o3l"]
+[gd_scene load_steps=10 format=3 uid="uid://c3g28rj6s7o3l"]
 
 [ext_resource type="Script" path="res://Scenes/kernel.gd" id="1_ucwt3"]
 [ext_resource type="PackedScene" uid="uid://putsv562o86l" path="res://Scenes/deck.tscn" id="1_vxrh1"]
 [ext_resource type="Texture2D" uid="uid://cb4hs3iq1xpq6" path="res://Assets/waves_lines.jpg" id="2_gbrkg"]
 [ext_resource type="PackedScene" uid="uid://bqquic1fte1jx" path="res://Scenes/Box/box_root.tscn" id="3_k6w42"]
 [ext_resource type="PackedScene" uid="uid://u2soe1uj7krd" path="res://Scenes/Box/box_summon_1.tscn" id="4_5i6nd"]
+[ext_resource type="AudioStream" uid="uid://cnrw25r65fmhg" path="res://Sounds/happy_blip.wav" id="6_coq0f"]
 
 [sub_resource type="Curve" id="Curve_kq2lw"]
-_data = [Vector2(0.30198, 0.395604), 0.0, 0.0, 0, 0, Vector2(0.693069, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.29703, 0.175824), 0.0, 0.0, 0, 0, Vector2(0.678218, 0.626374), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Animation" id="Animation_aih18"]
@@ -86,7 +87,7 @@ is_in_play = true
 one_shot = true
 
 [node name="DelayCOMTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 one_shot = true
 
 [node name="WavesAnimation" type="AnimationPlayer" parent="."]
@@ -94,6 +95,9 @@ libraries = {
 "": SubResource("AnimationLibrary_orx1g")
 }
 speed_scale = 0.242
+
+[node name="PlacedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_coq0f")
 
 [connection signal="box_selected" from="Deck" to="." method="_on_deck_box_selected"]
 [connection signal="box_unselected" from="Deck" to="." method="_on_deck_box_unselected"]

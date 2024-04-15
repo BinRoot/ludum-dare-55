@@ -2,6 +2,7 @@ extends Node2D
 signal out_of_sockets
 signal player_summons
 signal com_summons
+signal box_placed
 
 @onready var map_ref_rect: ReferenceRect = $MapReferenceRect
 @onready var line_for_power_core_distance = $LineHolder/PowerCoreLine2D
@@ -13,6 +14,7 @@ signal com_summons
 @onready var deck = $Deck
 @onready var delay_com_timer = $DelayCOMTimer
 @onready var waves_animation = $WavesAnimation
+@onready var placed_sound = $PlacedSound
 
 var is_game_over = false
 
@@ -66,7 +68,7 @@ func get_nearest_socket(reference_position: Vector2, player_id: Globals.PlayerID
 	if nearest_socket != null:
 		if player_id == Globals.PlayerID.P1 and nearest_socket.global_position.distance_to(reference_position) < 5:
 			return
-		if player_id == Globals.PlayerID.COM1 and nearest_socket.get_box().global_position.distance_to(reference_position) < 150:
+		if player_id == Globals.PlayerID.COM1 and nearest_socket.get_box().global_position.distance_to(reference_position) < 100:
 			return
 	return nearest_socket
 
@@ -94,7 +96,7 @@ func draw_path(path):
 		if weakref(selected_box).get_ref():
 			path_size_factor = selected_box.path_size_factor
 		if path_idx > path.size() - Globals.params["misc"]["max_path_length"] * path_size_factor:
-			line_gradient.add_point(path_idx / float(path.size()), Color.GREEN)
+			line_gradient.add_point(path_idx / float(path.size()), Color.DARK_SLATE_GRAY)
 		else:
 			line_gradient.add_point(path_idx / float(path.size()), Color.RED)
 	line_for_power_core_distance.gradient = line_gradient
@@ -137,6 +139,8 @@ func establish_connection(path, box, socket, player_id: Globals.PlayerID):
 	refresh_sockets_array()
 	box.owned_by = player_id
 	selected_box = null
+	placed_sound.play()
+	emit_signal("box_placed")
 	refresh_grid()
 	game_over_checker.start()
 	if player_id == Globals.PlayerID.P1:
@@ -156,6 +160,11 @@ func _input(event):
 					path_size_factor = selected_box.path_size_factor
 				if path.size() > 0 and path.size() <= Globals.params["misc"]["max_path_length"] * path_size_factor:
 					establish_connection(path, selected_box, nearest_socket, Globals.PlayerID.P1)
+			else:
+				if selected_box != null:
+					selected_box.queue_free()
+					selected_box = null
+					deck._on_card_unselected()
 			line_for_power_core_distance.clear_points()
 		elif event.is_pressed():
 			line_for_power_core_distance.clear_points()

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwqtmiki10vov"]
+[gd_scene load_steps=7 format=3 uid="uid://dwqtmiki10vov"]
 
 [ext_resource type="Script" path="res://Scenes/card.gd" id="1_ekduy"]
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_hr17g"]
 [ext_resource type="Texture2D" uid="uid://cv6efa8gkm4sr" path="res://Assets/white_ball.svg" id="3_4qub8"]
+[ext_resource type="AudioStream" uid="uid://cxqfpi54a8hny" path="res://Sounds/blip.wav" id="4_hr7tn"]
+[ext_resource type="AudioStream" uid="uid://c78f72dneeufr" path="res://Sounds/mini_blip.wav" id="5_q1xwn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npd3f"]
 size = Vector2(128, 128)
@@ -138,6 +140,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_4qub8")
 expand_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hr7tn")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_q1xwn")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

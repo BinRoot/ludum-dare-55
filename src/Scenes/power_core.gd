@@ -5,6 +5,7 @@ signal clicked
 @onready var highlighted_ui: TextureRect = $HighlightedUI
 @onready var original_modulate = texture.modulate
 @onready var polygons = $Polygons
+@onready var consumed_polygons = $ConsumedPoly
 
 var consumed_by
 
@@ -20,7 +21,6 @@ func is_powered():
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE and line2d != null:
-		prints(name, ' freeing')
 		var wf = weakref(line2d)
 		if wf.get_ref():
 			line2d.queue_free()
@@ -31,19 +31,19 @@ func get_box():
 func _physics_process(delta):
 	if consumed_by == null:
 		texture.modulate = original_modulate
+		polygons.modulate = original_modulate
 		highlighted_ui.visible = get_box().is_in_play
 		polygons.visible = true
+		consumed_polygons.visible = false
 	else:
 		texture.modulate = Color.GREEN_YELLOW
 		highlighted_ui.visible = false
-		polygons.visible = false
+		polygons.visible = true
+		consumed_polygons.visible = true
 
 	
 	if highlighted_ui.visible:
-		var rotation_speed = 5
-		if is_selected:
-			rotation_speed = 30
-		highlighted_ui.rotation_degrees += delta * rotation_speed
+		highlighted_ui.rotation_degrees += delta * 20
 
 
 func _on_area_2d_input_event(viewport, event, shape_idx):

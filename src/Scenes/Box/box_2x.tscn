@@ -44,7 +44,7 @@ _data = {
 "sway": SubResource("Animation_husrl")
 }
 
-[node name="Box2X" type="Node2D"]
+[node name="Box2X" type="Node2D" groups=["box"]]
 script = ExtResource("1_cmuwt")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -60,7 +60,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_xsyf8")
 
 [node name="PowerCore" parent="." instance=ExtResource("2_cf2gn")]
-position = Vector2(0, -8)
+position = Vector2(-35, -5)
 scale = Vector2(0.5, 0.5)
 
 [node name="Turret" parent="." instance=ExtResource("3_hpqyi")]

@@ -10,6 +10,8 @@
 script = ExtResource("1_xh5wf")
 
 [node name="Socket" parent="." instance=ExtResource("2_33ywh")]
+position = Vector2(7, -40)
+scale = Vector2(0.5, 0.5)
 
 [node name="BoxEngine" parent="." instance=ExtResource("3_v5i5j")]
 

@@ -7,6 +7,8 @@ signal card_unselected
 @onready var subtype1 = $Subtype1
 @onready var subtype2 = $Subtype2
 @onready var subtype3 = $Subtype3
+@onready var audio = $AudioStreamPlayer
+@onready var audio2 = $AudioStreamPlayer2
 
 var is_selected = false
 
@@ -21,6 +23,7 @@ func get_card_res() -> Resource:
 func _on_area_2d_mouse_entered():
 	if not is_selected:
 		emit_signal("card_hovered", self)
+		audio2.play()
 
 func _physics_process(delta):
 	if is_selected:
@@ -43,6 +46,7 @@ func _physics_process(delta):
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed() and not is_selected:
 		emit_signal("card_selected", self)
+		audio.play()
 		is_selected = true
 	elif event is InputEventMouseButton and event.is_pressed() and is_selected:
 		emit_signal("card_unselected")

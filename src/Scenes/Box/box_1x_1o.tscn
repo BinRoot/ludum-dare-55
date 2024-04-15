@@ -58,7 +58,7 @@ _data = {
 "sway": SubResource("Animation_bq8bf")
 }
 
-[node name="Box1X1O" type="Node2D"]
+[node name="Box1X1O" type="Node2D" groups=["box"]]
 script = ExtResource("1_glbpx")
 
 [node name="Base" type="TextureRect" parent="."]
@@ -88,13 +88,13 @@ offset_bottom = 8.0
 texture = ExtResource("1_p20jr")
 expand_mode = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_dpvf6")
-
 [node name="PowerCore" parent="." instance=ExtResource("3_lrfjq")]
 position = Vector2(-56, -8)
 scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_dpvf6")
 
 [node name="Socket" parent="." instance=ExtResource("4_6527m")]
 position = Vector2(0, 16)

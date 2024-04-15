@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://de33n744aur27"]
+[gd_scene load_steps=7 format=3 uid="uid://de33n744aur27"]
 
 [ext_resource type="Script" path="res://Scenes/turret.gd" id="1_vhndu"]
-[ext_resource type="Texture2D" uid="uid://c53po7h1wtipw" path="res://Assets/yellow_arrow.svg" id="2_t4bv7"]
+[ext_resource type="Texture2D" uid="uid://cv6efa8gkm4sr" path="res://Assets/white_ball.svg" id="2_ngbun"]
 [ext_resource type="Texture2D" uid="uid://csmwxyvp3bvy1" path="res://Assets/cannon.png" id="3_2aw84"]
+[ext_resource type="AudioStream" uid="uid://c08c4625jat1n" path="res://Sounds/boom.wav" id="4_yngto"]
+[ext_resource type="AudioStream" uid="uid://dhwtwvtlcrwgn" path="res://Sounds/mini_boom.wav" id="5_av7n0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8q8j"]
 radius = 160.798
@@ -11,13 +13,13 @@ radius = 160.798
 script = ExtResource("1_vhndu")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-pivot_offset = Vector2(16, 16)
-texture = ExtResource("2_t4bv7")
+modulate = Color(0.0784314, 0.0784314, 0.0784314, 1)
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+pivot_offset = Vector2(4, 4)
+texture = ExtResource("2_ngbun")
 expand_mode = 1
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -33,4 +35,14 @@ shape = SubResource("CircleShape2D_n8q8j")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_2aw84")
 
+[node name="BoomSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_yngto")
+
+[node name="MiniBoomSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_av7n0")
+
+[node name="CheckNearbyTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="CheckNearbyTimer" to="." method="_on_check_nearby_timer_timeout"]

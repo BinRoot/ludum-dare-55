@@ -11,6 +11,8 @@ enum PlayerID { P1, COM1, NEUTRAL }
 
 @onready var settings_ui = preload("res://Scenes/settings_ui.tscn")
 
+var is_violent = false
+
 enum CardTypes { card1a, card1b, card1c, card2a, card2b, card2c, card3a, card3b, card3c }
 
 var card_types = {
