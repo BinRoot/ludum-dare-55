@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://chviof5mg6mnp"]
+[gd_scene load_steps=19 format=3 uid="uid://chviof5mg6mnp"]
 
 [ext_resource type="PackedScene" uid="uid://c3g28rj6s7o3l" path="res://Scenes/kernel.tscn" id="1_1owam"]
 [ext_resource type="Script" path="res://Scenes/demo_level.gd" id="1_ox0o4"]
@@ -16,6 +16,51 @@
 [ext_resource type="AudioStream" uid="uid://b8k5v7f2nhgu5" path="res://Assets/lead_d.wav" id="14_4iucs"]
 [ext_resource type="AudioStream" uid="uid://dwr8n3bctyoye" path="res://Assets/synth_a.wav" id="15_3ge6n"]
 [ext_resource type="AudioStream" uid="uid://dkcwsiuqdmbgp" path="res://Assets/synth_b.wav" id="16_borgs"]
+
+[sub_resource type="Animation" id="Animation_8hn6c"]
+resource_name = "tutorial"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tutorial:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 6, 9.5, 10.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1568, -56), Vector2(1576, 176), Vector2(248, 48), Vector2(248, 48), Vector2(912, 800)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tutorial:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5, 5.2, 6.1, 9.1, 9.3, 11),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Deep in the Pacific Ocean lives a Kaiju", "Deep in the Pacific Ocean lives a Kaiju", "...", "Race to unlock its power!", "Race to unlock its power!", "...", "Pick a boat."]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Tutorial:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_43cr8"]
+_data = {
+"tutorial": SubResource("Animation_8hn6c")
+}
 
 [node name="DemoLevel" type="Node2D"]
 script = ExtResource("1_ox0o4")
@@ -138,6 +183,18 @@ stream = ExtResource("16_borgs")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 8.0
+
+[node name="Tutorial" type="Label" parent="."]
+offset_left = 414.0
+offset_top = 236.0
+offset_right = 705.002
+offset_bottom = 259.0
+text = "..."
+
+[node name="TutorialAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_43cr8")
+}
 
 [connection signal="box_placed" from="Kernel" to="." method="_on_kernel_box_placed"]
 [connection signal="com_summons" from="Kernel" to="." method="_on_kernel_com_summons"]

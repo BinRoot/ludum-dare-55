@@ -11,6 +11,7 @@ extends Node2D
 @onready var leads = [$LeadA, $LeadB, $LeadC, $LeadD]
 @onready var synths = [$SynthA, $SynthB]
 @onready var music_timer = $Timer
+@onready var tutorial_animation = $TutorialAnimation
 
 var is_box_placed = false
 var is_game_over = false
@@ -28,6 +29,7 @@ func _ready():
 		synth.volume_db = volumn_db
 	_on_timer_timeout()
 	music_timer.start()
+	tutorial_animation.play("tutorial")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
