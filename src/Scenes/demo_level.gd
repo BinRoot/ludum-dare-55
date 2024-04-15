@@ -12,6 +12,7 @@ extends Node2D
 @onready var synths = [$SynthA, $SynthB]
 @onready var music_timer = $Timer
 @onready var tutorial_animation = $TutorialAnimation
+@onready var tutorial_animation2 = $TutorialAnimation2
 
 var is_box_placed = false
 var is_game_over = false
@@ -92,4 +93,5 @@ func _on_kernel_box_placed():
 	if not is_box_placed:
 		var bass = basses[randi() % basses.size()]
 		bass.play()
+		tutorial_animation2.play("tutorial")
 	is_box_placed = true	

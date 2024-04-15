@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://chviof5mg6mnp"]
+[gd_scene load_steps=21 format=3 uid="uid://chviof5mg6mnp"]
 
 [ext_resource type="PackedScene" uid="uid://c3g28rj6s7o3l" path="res://Scenes/kernel.tscn" id="1_1owam"]
 [ext_resource type="Script" path="res://Scenes/demo_level.gd" id="1_ox0o4"]
@@ -60,6 +60,52 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_43cr8"]
 _data = {
 "tutorial": SubResource("Animation_8hn6c")
+}
+
+[sub_resource type="Animation" id="Animation_ohvnf"]
+resource_name = "tutorial"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tutorial:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1560, 544)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tutorial:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Click the sockets when
+you're close by to unlock the vault."]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Tutorial:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q6kmi"]
+_data = {
+"tutorial": SubResource("Animation_ohvnf")
 }
 
 [node name="DemoLevel" type="Node2D"]
@@ -185,15 +231,22 @@ stream = ExtResource("16_borgs")
 wait_time = 8.0
 
 [node name="Tutorial" type="Label" parent="."]
-offset_left = 414.0
-offset_top = 236.0
-offset_right = 705.002
-offset_bottom = 259.0
-text = "..."
+offset_left = 1568.0
+offset_top = -56.0
+offset_right = 1859.0
+offset_bottom = -7.0
+text = "Deep in the Pacific Ocean lives a Kaiju"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TutorialAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_43cr8")
+}
+
+[node name="TutorialAnimation2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q6kmi")
 }
 
 [connection signal="box_placed" from="Kernel" to="." method="_on_kernel_box_placed"]

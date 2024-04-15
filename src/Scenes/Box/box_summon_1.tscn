@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://u2soe1uj7krd"]
+[gd_scene load_steps=16 format=3 uid="uid://u2soe1uj7krd"]
 
 [ext_resource type="Texture2D" uid="uid://bdha7jcq2l4hm" path="res://Assets/gray_box.svg" id="1_jfbnm"]
 [ext_resource type="Script" path="res://Scenes/Box/box_summon_1.gd" id="1_l25rl"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://r6fnxsdrej0i" path="res://Assets/kaiju2.png" id="10_m7xq1"]
 [ext_resource type="Texture2D" uid="uid://d25hx3gbnbh3g" path="res://Assets/kaiju1.png" id="11_n3y55"]
 [ext_resource type="Texture2D" uid="uid://1ecsfdqr0kal" path="res://Assets/kaiju3.png" id="12_s6d62"]
+[ext_resource type="AudioStream" uid="uid://dabi0vjbyjdx7" path="res://Sounds/beam_sfx.mp3" id="13_0lt43"]
 
 [sub_resource type="Animation" id="Animation_atiek"]
 resource_name = "open_vault"
@@ -160,6 +161,21 @@ tracks/11/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.980392, 0.670588, 0.894118, 0.623529), Color(0.980392, 0.670588, 0.894118, 0)]
 }
+tracks/12/type = "audio"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("AudioStreamPlayer")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("13_0lt43")
+}],
+"times": PackedFloat32Array(7.7)
+}
+tracks/12/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uyx2c"]
 _data = {
@@ -286,6 +302,8 @@ position = Vector2(24, -112)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_s6d62")
 flip_h = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="clicked" from="PowerCore" to="." method="_on_power_core_clicked"]
 [connection signal="clicked" from="PowerCore2" to="." method="_on_power_core_clicked"]
